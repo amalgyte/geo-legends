@@ -1,0 +1,13 @@
+<div class="era-list">
+  <h2>Eras</h2>
+  <button class="add-btn" (click)="addEra()">Add New Era</button>
+  <ul>
+    <li *ngFor="let era of eras">
+      <span>{{ era.name }}</span>
+      <div>
+        <button class="edit-btn" (click)="editEra(era.id)">Edit</button>
+        <button class="delete-btn" (click)="deleteEra(era.id)">Delete</button>
+      </div>
+    </li>
+  </ul>
+</div>

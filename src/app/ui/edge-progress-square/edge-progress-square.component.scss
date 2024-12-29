@@ -1,0 +1,56 @@
+:host {
+  display: inline-block;
+  width: 75px; // Adjust size as needed
+  height: 75px;
+  position: relative;
+}
+
+.square {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  border-radius: 8px; // Rounded corners for the square
+  background: conic-gradient(
+    var(--color, blue) calc(var(--percentage, 0%) * 1%),
+    transparent 0%
+  );
+
+  // Internal background with slightly smaller size to create the edge effect
+  &::after {
+    content: "";
+    position: absolute;
+    top: 5%;
+    left: 5%;
+    width: 90%;
+    height: 90%;
+    background: var(--background-color, white); // Configurable internal color
+    border-radius: 6px; // Match the rounded corner style
+    z-index: 1;
+  }
+
+  .percentage {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%); // Center the text
+    font-size: 16px; // Adjust size as needed
+    font-weight: bold;
+    color: var(--percentage-color, black); // Configurable text color
+    z-index: 2; // Ensure it appears above the internal background
+  }
+
+  .title {
+    position: absolute;
+    bottom: 5px;
+    left: 5px;
+    right: 5px;
+    text-align: center;
+    font-size: 12px; // Adjust font size
+    font-weight: bold;
+    color: var(--text-color, black); // Configurable title color
+    white-space: nowrap; // Prevent wrapping
+    overflow: hidden; // Clip text that overflows
+    text-overflow: ellipsis; // Add ellipsis for overflowed text
+    z-index: 10; // Ensure it appears above the internal background
+  }
+}

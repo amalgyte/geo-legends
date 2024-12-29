@@ -1,0 +1,9 @@
+<!-- Map Container -->
+<div id="map-container">
+  <app-map
+    [FetchCountryData]="false"
+    [FetchTerrainData]="false"
+    (cellEvent)="onCellEvent($event)"
+  ></app-map>
+
+</div>

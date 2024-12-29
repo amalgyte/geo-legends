@@ -1,0 +1,14 @@
+<div class="technology-list">
+    <h2>Technologies</h2>
+    <button class="add-btn" (click)="addTechnology()">Add New Technology</button>
+    <ul>
+      <li *ngFor="let technology of technologies">
+        <span>{{ technology.name }}</span>
+        <div>
+          <button class="edit-btn" (click)="editTechnology(technology.id)">Edit</button>
+          <button class="delete-btn" (click)="deleteTechnology(technology.id)">Delete</button>
+        </div>
+      </li>
+    </ul>
+  </div>
+  

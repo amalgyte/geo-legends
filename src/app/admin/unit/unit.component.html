@@ -1,0 +1,13 @@
+<div class="unit-list">
+  <h2>Units</h2>
+  <button class="add-btn" (click)="addUnit()">Add New Unit</button>
+  <ul>
+    <li *ngFor="let unit of units">
+      <span>{{ unit.name }}</span>
+      <div>
+        <button class="edit-btn" (click)="editUnit(unit.id)">Edit</button>
+        <button class="delete-btn" (click)="deleteUnit(unit.id)">Delete</button>
+      </div>
+    </li>
+  </ul>
+</div>

@@ -1,0 +1,17 @@
+<div class="resource-list">
+  <h2>Resources</h2>
+  <button class="add-btn" (click)="addResource()">Add New Resource</button>
+  <ul>
+    <li *ngFor="let resource of resources">
+      <span>{{ resource.name }}</span>
+      <div>
+        <button class="edit-btn" (click)="editResource(resource.id)">
+          Edit
+        </button>
+        <button class="delete-btn" (click)="deleteResource(resource.id)">
+          Delete
+        </button>
+      </div>
+    </li>
+  </ul>
+</div>

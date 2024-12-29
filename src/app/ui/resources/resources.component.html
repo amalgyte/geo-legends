@@ -1,0 +1,12 @@
+<div class="resources">
+  <div class="resource-tiles" *ngFor="let key of resources | keyvalue">
+    <app-edge-progress-square
+      [percentage]="key.value"
+      [title]="key.key"
+      [color]="'green'"
+      [backgroundColor]="'lightgray'"
+      [textColor]="'blue'"
+      [percentageColor]="'black'"
+    ></app-edge-progress-square>
+  </div>
+</div>

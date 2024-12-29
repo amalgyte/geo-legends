@@ -1,0 +1,57 @@
+$primary-color: #4caf50;
+$secondary-color: #f1f1f1;
+$hover-color: #e8f5e9;
+$nav-link-color: #333;
+
+.game-config {
+  max-width: 1200px;
+  margin: 1rem ;
+  padding: 1rem;
+  background-color: rgb(224, 239, 16);
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+
+  h1 {
+    text-align: center;
+    color: $primary-color;
+    font-size: 2rem;
+    margin-bottom: 1.5rem;
+  }
+
+  nav {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    margin-bottom: 2rem;
+
+    a {
+      padding: 0.8rem 1.5rem;
+      text-decoration: none;
+      font-size: 1rem;
+      font-weight: 500;
+      color: $nav-link-color;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      background-color: $secondary-color;
+      transition: all 0.3s ease;
+
+      &:hover {
+        background-color: $hover-color;
+        color: $primary-color;
+        border-color: $primary-color;
+      }
+
+      &.active {
+        background-color: $primary-color;
+        color: white;
+        border-color: $primary-color;
+      }
+    }
+  }
+
+  router-outlet {
+    display: block;
+    margin-top: 2rem;
+  }
+}

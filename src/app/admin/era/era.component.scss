@@ -1,0 +1,83 @@
+@use "sass:color";
+.era-list {
+  max-width: 800px;
+  margin: 2rem auto;
+  padding: 1.5rem;
+  background-color: #f1f1f1;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+
+  h2 {
+    margin-bottom: 1rem;
+    color: #4caf50;
+    text-align: center;
+  }
+
+  ul {
+    list-style: none;
+    padding: 0;
+
+    li {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0.8rem;
+      margin-bottom: 0.5rem;
+      background-color: white;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+
+      &:hover {
+        background-color: #e8f5e9;
+      }
+
+      span {
+        font-size: 1.1rem;
+        font-weight: 500;
+      }
+
+      button {
+        background-color: #4caf50;
+        color: white;
+        border: none;
+        border-radius: 4px;
+        padding: 0.5rem 1rem;
+        font-size: 0.9rem;
+        cursor: pointer;
+
+        &:hover {
+          background-color: color.adjust(#4caf50, $lightness: -10%);
+        }
+
+        &.edit-btn {
+          margin-right: 0.5rem;
+        }
+
+        &.delete-btn {
+          background-color: #e57373;
+
+          &:hover {
+            background-color: color.adjust(#e57373, $lightness: -10%);
+          }
+        }
+      }
+    }
+  }
+
+  button.add-btn {
+    display: block;
+    margin: 1rem auto;
+    padding: 0.8rem 2rem;
+    font-size: 1rem;
+    color: white;
+    background-color: #4caf50;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+
+    &:hover {
+      background-color: color.adjust(#4caf50, $lightness: -10%);
+    }
+  }
+}
