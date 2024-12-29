@@ -1,0 +1,12 @@
+/* You can add global styles to this file, and also import other style files */
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+.leaflet-container .leaflet-pane .leaflet-marker-pane img {
+  content: url('/assets/images/marker-icon.png');
+}
+
+.leaflet-container .leaflet-pane .leaflet-shadow-pane img {
+  content: url('/assets/images/marker-shadow.png');
+}

@@ -1,0 +1,145 @@
+@use "sass:color";
+.unit-form {
+  max-width: 800px;
+  margin: 2rem auto;
+  padding: 1.5rem;
+  background-color: white;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+
+  h2 {
+    color: #4caf50;
+    text-align: center;
+    margin-bottom: 1rem;
+  }
+
+  form {
+    display: flex;
+    flex-direction: column;
+
+    label {
+      margin-top: 1rem;
+      font-weight: 500;
+    }
+
+    input,
+    textarea,
+    select {
+      margin-top: 0.3rem;
+      padding: 0.8rem;
+      font-size: 1rem;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      transition: border-color 0.3s ease;
+
+      &:focus {
+        outline: none;
+        border-color: #4caf50;
+      }
+    }
+
+    .cost {
+      ul {
+        list-style: none;
+        padding: 0;
+
+        li {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          padding: 0.5rem;
+          background-color: #f9f9f9;
+          margin-bottom: 0.5rem;
+          border: 1px solid #ccc;
+          border-radius: 4px;
+
+          button {
+            background-color: #e57373;
+            color: white;
+            border: none;
+            padding: 0.3rem 0.8rem;
+            border-radius: 4px;
+            cursor: pointer;
+
+            &:hover {
+              background-color: color.adjust(#e57373, $lightness: -10%);
+            }
+          }
+        }
+      }
+
+      .add-cost {
+        display: flex;
+        gap: 1rem;
+        margin-top: 1rem;
+
+        select,
+        input {
+          flex: 1;
+        }
+
+        button {
+          background-color: #4caf50;
+          color: white;
+          padding: 0.5rem 1rem;
+          border: none;
+          border-radius: 6px;
+          cursor: pointer;
+
+          &:hover {
+            background-color: color.adjust(#4caf50, $lightness: -10%);
+          }
+        }
+      }
+    }
+
+    .stats {
+      display: flex;
+      gap: 1rem;
+
+      div {
+        flex: 1;
+
+        label {
+          margin-top: 1rem;
+        }
+
+        input {
+          width: 100%;
+        }
+      }
+    }
+
+    .button-group {
+      margin-top: 1.5rem;
+      display: flex;
+      justify-content: space-between;
+
+      button {
+        padding: 0.8rem 1.5rem;
+        font-size: 1rem;
+        border: none;
+        border-radius: 6px;
+        cursor: pointer;
+
+        &.save-btn {
+          background-color: #4caf50;
+          color: white;
+
+          &:hover {
+            background-color: color.adjust(#4caf50, $lightness: -10%);
+          }
+        }
+
+        &.cancel-btn {
+          background-color: #e0e0e0;
+
+          &:hover {
+            background-color: color.adjust(#e0e0e0, $lightness: -10%);
+          }
+        }
+      }
+    }
+  }
+}

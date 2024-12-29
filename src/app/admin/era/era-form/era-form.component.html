@@ -1,0 +1,107 @@
+<div class="era-form">
+  <h2>{{ isEditMode ? "Edit Era" : "Add Era" }}</h2>
+  <form (ngSubmit)="saveEra()">
+    <label for="name">Era Name</label>
+    <input id="name" [(ngModel)]="era.name" name="name" required />
+
+    <label for="description">Description</label>
+    <textarea
+      id="description"
+      [(ngModel)]="era.description"
+      name="description"
+      rows="4"
+    ></textarea>
+
+    <label for="previousEraId">Previous Era</label>
+    <select
+      id="previousEraId"
+      [(ngModel)]="era.previousEraId"
+      name="previousEraId"
+    >
+      <option [value]="null">None</option>
+      <option *ngFor="let filteredEra of filteredEras" [value]="filteredEra.id">
+        {{ filteredEra.name }}
+      </option>
+    </select>
+
+    <label for="nextEraId">Next Era</label>
+    <select id="nextEraId" [(ngModel)]="era.nextEraId" name="nextEraId">
+      <option [value]="null">None</option>
+      <option *ngFor="let filteredEra of filteredEras" [value]="filteredEra.id">
+        {{ filteredEra.name }}
+      </option>
+    </select>
+
+    <label for="ages">Ages</label>
+    <div class="ages">
+      <ul>
+        <li *ngFor="let age of era.ages">
+          {{ age.name }} ({{ age.sequence }})
+          <button type="button" *ngIf="age.id" (click)="removeAge(age.id!)">
+            Remove
+          </button>
+        </li>
+      </ul>
+
+      <div class="add-existing-age">
+        <label for="existingAge">Add Existing Age</label>
+        <select id="existingAge" (change)="addExistingAgeFromEvent($event)">
+          <option [value]="null">Select Age</option>
+          <option *ngFor="let age of knownAges" [value]="age.id">
+            {{ age.name }}
+          </option>
+        </select>
+      </div>
+
+      <div class="add-new-age">
+        <h4>Add New Age</h4>
+        <div class="form-row">
+          <div class="form-group">
+            <label for="newAgeName">Name</label>
+            <input
+              id="newAgeName"
+              [(ngModel)]="newAge.name"
+              name="newAgeName"
+            />
+          </div>
+          <div class="form-group">
+            <label for="newAgeDescription">Description</label>
+            <textarea
+              id="newAgeDescription"
+              [(ngModel)]="newAge.description"
+              name="newAgeDescription"
+              rows="2"
+            ></textarea>
+          </div>
+          <div class="form-group">
+            <label for="newAgeSequence">Order</label>
+            <input
+              id="newAgeSequence"
+              [(ngModel)]="newAge.sequence"
+              name="newAgeSequence"
+              type="number"
+            />
+          </div>
+          <div class="form-group">
+            <button type="button" class="add-age-btn" (click)="addNewAge()">
+              Add New Age
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="button-group">
+      <button class="save-btn" type="submit">
+        {{ isEditMode ? "Save Changes" : "Add Era" }}
+      </button>
+      <button
+        class="cancel-btn"
+        type="button"
+        (click)="router.navigate(['/admin/eras'])"
+      >
+        Cancel
+      </button>
+    </div>
+  </form>
+</div>

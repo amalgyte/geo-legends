@@ -1,0 +1,17 @@
+<div class="building-list">
+  <h2>Buildings</h2>
+  <button class="add-btn" (click)="addBuilding()">Add New Building</button>
+  <ul>
+    <li *ngFor="let building of buildings">
+      <span>{{ building.name }}</span>
+      <div>
+        <button class="edit-btn" (click)="editBuilding(building.id)">
+          Edit
+        </button>
+        <button class="delete-btn" (click)="deleteBuilding(building.id)">
+          Delete
+        </button>
+      </div>
+    </li>
+  </ul>
+</div>

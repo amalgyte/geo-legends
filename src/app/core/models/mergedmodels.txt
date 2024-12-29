@@ -1,0 +1,366 @@
+import { Ages } from "../enumerators/ages.enum";
+import { UnlockRequirement } from "./unlock-requirement.interface";
+
+export interface AgeDefinition {
+    id: Ages;                   // Unique identifier
+    name: string;                 // Display name
+    description: string;          // Description of the age
+    unlockRequirements: UnlockRequirement[]; // Requirements to enter this age
+    technologies: string[];       // IDs of available technologies in this age
+    buildings: string[];          // IDs of buildings available in this age
+    units: string[];              // IDs of units available in this age
+  }
+  
+import { AgreementTermType } from "../enumerators/agreement-term-type.enum";
+import { Condition } from "./condition.interface";
+
+export interface AgreementTerm {
+    type: AgreementTermType; // Type of term
+    resourceId?: string;        // Resource involved (if applicable)
+    amount?: number;            // Amount of resource (if applicable)
+    duration?: number;          // Duration in turns or real-time
+    conditions: Condition[];    // Conditions to fulfill the term
+  }
+  
+import { AgreementType } from "../enumerators/agreement-type.enum";
+import { AgreementTerm } from "./agreement-term.interface";
+
+export interface Agreement {
+    id: string;                 // Unique identifier
+    type: AgreementType; // Type of agreement
+    terms: AgreementTerm[];     // Specific terms of the agreement
+    startDate: number;          // Timestamp when the agreement starts
+    endDate?: number;           // Optional end date for temporary agreements
+  }
+  
+import { TerrainType } from "../enumerators/terrain-type.enum";
+
+export interface BattleLocation {
+    x: number;                  // Grid x-coordinate
+    y: number;                  // Grid y-coordinate
+    terrain: TerrainType ; // Terrain type
+  }
+  
+export interface BattleLogEntry {
+    timestamp: number;          // Time of the event
+    description: string;        // Event description
+    involvedUnits: string[];    // IDs of units involved
+  }
+  
+import { BattleObjectiveType } from "../enumerators/battle-objective-type.enum";
+
+export interface BattleObjective {
+    id: string;                 // Unique identifier
+    type: BattleObjectiveType; // Objective type
+    description: string;        // Objective description
+    targetId?: string;          // ID of the target (if applicable)
+  }
+  
+import { BattleParticipantStrategy } from "../enumerators/battle-participant-strategy.enum";
+import { BattleUnit } from "./battle-unit.interface";
+
+export interface BattleParticipant {
+    entityId: string;           // ID of the player or faction
+    units: BattleUnit[];        // Units deployed by the participant
+    strategy: BattleParticipantStrategy; // Chosen strategy
+  }
+  
+import { ResourceCost } from "./resource-cost.interface";
+
+export interface BattleResult {
+    winningEntityId: string;    // ID of the winning player or faction
+    remainingUnits: { [entityId: string]: number }; // Count of surviving units per participant
+    loot: ResourceCost[];       // Resources gained by the winner
+  }
+  
+import { UnitAction } from "./unit-action.interface";
+
+export interface BattleUnit {
+    unitId: string;             // ID of the unit definition
+    currentHealth: number;      // Current health
+    attackPower: number;        // Attack capability
+    defensePower: number;       // Defense capability
+    position: { x: number; y: number }; // Position on the battlefield
+    actions: UnitAction[];      // Actions taken during the battle
+  }
+  
+import { BattleStatus } from '../enumerators/battle-status.enum';
+import { BattleLocation } from './battle-location.interface';
+import { BattleLogEntry } from './battle-log-entry.interface';
+import { BattleObjective } from './battle-objective.interface';
+import { BattleParticipant } from './battle-participant.interface';
+import { BattleResult } from './battle-result.interface';
+
+export interface Battle {
+  id: string; // Unique identifier
+  location: BattleLocation; // Location of the battle
+  participants: BattleParticipant[]; // Entities involved
+  objectives: BattleObjective[]; // Objectives for the battle
+  status: BattleStatus; // Current status
+  log: BattleLogEntry[]; // Log of events during the battle
+  result?: BattleResult; // Outcome of the battle
+}
+import { Ages } from '../enumerators/ages.enum';
+import { BuildingType } from '../enumerators/building-type.enum';
+import { ResourceCost } from './resource-cost.interface';
+import { ResourceProduction } from './resource-production.interface';
+import { UnlockRequirement } from './unlock-requirement.interface';
+import { UpgradeDefinition } from './upgrade-definition.interface';
+
+export interface BuildingDefinition {
+  id: string; // Unique identifier
+  name: string; // Display name
+  description: string; // Description of the building
+  age: Ages; // ID of the age this building belongs to
+  baseCost: ResourceCost[]; // Cost to build or upgrade
+  upgrades: UpgradeDefinition[]; // Upgrade paths
+  production: ResourceProduction[]; // Resources or effects produced
+  unlocks: UnlockRequirement[]; // Technologies, units, or buildings unlocked
+  upgradeTo?: string; // ID of the upgraded version
+  category: BuildingType; // Type of building
+
+}
+export interface BuildingInstance {
+    id: string;                 // Unique instance identifier
+    definitionId: string;       // ID of the building definition
+    level: number;              // Current level of the building
+    locationId: string; // Location on the game grid eg:cell_58650_-944
+  }
+  
+import { ConditionType } from "../enumerators/condition-type.enum";
+
+export interface Condition {
+    type: ConditionType; // Type of condition
+    resourceId?: string;        // ID of resource (if applicable)
+    amount?: number;            // Required amount (if applicable)
+    eventId?: string;           // Specific event (e.g., battle won)
+  }
+  
+import { EntityType } from "../enumerators/entity-type.enum";
+import { Relationship } from "./relationship.interface";
+
+export interface DiplomaticEntity {
+    id: string;                 // Unique identifier
+    name: string;               // Name of the entity (e.g., faction, player)
+    type: EntityType; // Type of entity
+    reputation: number;         // Global reputation score (-100 to +100)
+    influence: number;          // Ability to sway others' decisions (0 to 100)
+    relationships: Relationship[]; // Relationships with other entities
+  }
+  
+import { EffectDefinitionType } from "../enumerators/effect-definition-type.enum";
+
+export interface EffectDefinition {
+    type: EffectDefinitionType; // Type of effect
+    targetId: string;          // Target (e.g., a building or unit)
+    multiplier: number;        // Effect multiplier (e.g., +10% production)
+  }
+  
+import { AgeDefinition } from './age-definition.interface';
+import { BuildingDefinition } from './building-definition.interface';
+import { TechnologyDefinition } from './technology-definition.interface';
+import { UnitDefinition } from './unit-definition.interface';
+import { UnlockRequirement } from './unlock-requirement.interface';
+
+export interface EraDefinition {
+  id: string; // Unique identifier
+  name: string; // Display name
+  description: string; // Description of the era
+  ages: AgeDefinition[]; // Ages within this era
+  unlockRequirements: UnlockRequirement[]; //Era is only unlockable when these requirements are met.
+  technologies: TechnologyDefinition[];
+  buildings: BuildingDefinition[];
+  units: UnitDefinition[];
+}
+export interface ForeignGridInfo {
+    ownerId: string;                // ID of the other player
+    type: string;                   // Type of building (e.g., "stone_mine")
+    lastKnownState: number;         // Timestamp of the last time this state was observed
+  }
+  
+import { BuildingDefinition } from "./building-definition.interface";
+import { EraDefinition } from "./era-definition.interface";
+import { ResourceDefinition } from "./resource-definition.interface";
+import { TechnologyDefinition } from "./technology-definition.interface";
+import { UnitDefinition } from "./unit-definition.interface";
+
+export interface GameConfig {
+    eras: EraDefinition[];        // List of all eras
+    globalResources: ResourceDefinition[]; // Definitions of all resources
+    globalTechnologies: TechnologyDefinition[]; // Definitions of all technologies
+    globalUnits: UnitDefinition[]; // Definitions of all units
+    globalBuildings: BuildingDefinition[]; // Definitions of all buildings
+  }
+  
+import { ResourceStockpile } from "./resource.stockpile.interface";
+
+export interface GridLocationState {
+    id: string;                     // Location ID (e.g., "cell_58650_-944")
+    type: string;                   // Type of building (e.g., "town_center")
+    resources: ResourceStockpile;   // Resources stored in this location
+    units: string[];                // Units currently stationed in this location
+    upgrades: string[];             // Upgrades applied to the building
+  }
+  
+import { ForeignGridInfo } from "./foreign-grid-info.interface";
+import { GridLocationState } from "./grid-location-state.interface";
+
+export interface GridOwnershipMap {
+    owned: { [locationId: string]: GridLocationState }; // Fully owned grid locations
+    visited: string[];                                  // Location IDs of visited grids
+    knownOthers: { [locationId: string]: ForeignGridInfo }; // Info about foreign-owned cells
+  }
+  
+export * from './game-config.interface';
+export * from './era-definition.interface';
+export * from './age-definition.interface';
+export * from './resource-definition.interface';
+export * from './building-definition.interface';
+export * from './unit-definition.interface';
+export * from './technology-definition.interface';
+export * from './player-state.interface';
+export * from './battle.interface';
+export * from './diplomacy-entity.interface';
+export * from './resource-cost.interface';
+export * from './player-state.interface';
+export * from './grid-location-state.interface';
+export * from './foreign-grid-info.interface';
+import { Ages } from '../enumerators/ages.enum';
+import { BuildingInstance } from './building-instance.interface';
+import { EffectDefinition } from './effect-definition.interface';
+import { GridOwnershipMap } from './grid-ownership-map.interface';
+import { UnitInstance } from './unit-instance.interface';
+
+export interface PlayerState {
+  id: string; // Unique player identifier
+  name: string; // Player name
+  currentAge: Ages; // Current age the player is in
+  resources: { [resourceId: string]: number }; // Resource inventory
+  buildings: BuildingInstance[]; // List of constructed buildings
+  technologies: string[]; // Researched technologies
+  units: UnitInstance[]; // Active units
+  activeEffects: EffectDefinition[]; // Active bonuses or penalties
+  gridOwnership: GridOwnershipMap; // Grid cells owned or visited (now required)
+}
+export interface Prerequisite {
+    type: 'building' | 'technology' | 'resource'; // Type of prerequisite
+    id: string; // ID of the required building, technology, or resource
+    level?: number; // Level required (for buildings/technologies)
+    amount?: number; // Amount required (for resources)
+  }
+  
+import { RelationshipStatus } from "../enumerators/relationship-status.enum";
+import { Agreement } from "./agreement.interface";
+
+export interface Relationship {
+    targetEntityId: string;     // ID of the other entity
+    status: RelationshipStatus; // Current relationship status
+    trustLevel: number;         // Trust score (-100 to +100)
+    agreements: Agreement[];    // List of active agreements
+  }
+  
+export interface ResourceCost {
+    resourceId: string;         // ID of the resource
+    amount: number;             // Amount required
+  }
+  
+import { ResourceCategory } from "../enumerators/resource-category.enum";
+
+export interface ResourceDefinition {
+    id: string;                 // Unique identifier
+    name: string;               // Display name
+    description: string;        // Description of the resource
+    baseValue: number;          // Base value for trading or calculation
+    category: ResourceCategory; // Category of resource
+  }
+  
+export interface ResourceProduction {
+    resourceId: string;         // ID of the resource
+    amountPerMinute: number;    // Production rate
+  }
+  
+export interface ResourceStockpile {
+    [resourceId: string]: number;   // Resource ID and quantity
+  }
+  
+import { Ages } from '../enumerators/ages.enum';
+import { EffectDefinition } from './effect-definition.interface';
+import { Prerequisite } from './prerequisite.interface';
+import { ResourceCost } from './resource-cost.interface';
+import { UnlockRequirement } from './unlock-requirement.interface';
+
+export interface TechnologyDefinition {
+  id: string; // Unique identifier
+  name: string; // Display name
+  description: string; // Description of the technology
+  age: Ages; // ID of the age this technology belongs to
+  cost: ResourceCost[]; // Cost to research
+  time: number; // upgrade time in seconds
+  unlocks: UnlockRequirement[]; // What this technology unlocks
+  effects: EffectDefinition[]; // Effects applied when researched
+  prerequisites?: Prerequisite[]; // Conditions to unlock this technology
+}
+import { UnitActionType } from "../enumerators/unit-action-type.enum";
+
+export interface UnitAction {
+    type: UnitActionType; // Action type
+    targetUnitId?: string;     // Target unit (if applicable)
+    newPosition?: { x: number; y: number }; // New position (if move)
+    damageDealt?: number;      // Damage inflicted (if attack)
+  }
+  
+import { Ages } from "../enumerators/ages.enum";
+import { UnitType } from "../enumerators/unit-type.enum";
+import { ResourceCost } from "./resource-cost.interface";
+import { UnitStats } from "./unit-stats.interface";
+import { UpgradeDefinition } from "./upgrade-definition.interface";
+
+export interface UnitDefinition {
+    id: string;                 // Unique identifier
+    name: string;               // Display name
+    description: string;        // Description of the unit
+    age: Ages;                // ID of the age this unit belongs to
+    cost: ResourceCost[];       // Cost to train
+    stats: UnitStats;           // Combat or utility stats
+    category: UnitType; // Type of unit
+
+    upgrades: UpgradeDefinition[]; // Upgrade paths
+  }
+  
+export interface UnitInstance {
+    id: string;                 // Unique instance identifier
+    definitionId: string;       // ID of the unit definition
+    currentLocation: { x: number; y: number }; // Current location on the map
+    currentHealth: number;      // Current health
+  }
+  
+export interface UnitStats {
+    attack: number;             // Attack power
+    defense: number;            // Defense capability
+    health: number;             // Health points
+    speed: number;              // Movement speed
+    range?: number;             // Attack range (if applicable)
+  }
+  
+import { BuildingId } from '../enumerators/building-id.enum';
+import { ConditionType } from '../enumerators/condition-type.enum';
+import { ResourceId } from '../enumerators/resource-id.enum';
+import { TechnologyId } from '../enumerators/technology-id.enum';
+import { UnitId } from '../enumerators/unit-id.enum';
+
+export interface UnlockRequirement {
+  type: ConditionType; // Condition type
+  id: ResourceId | TechnologyId | BuildingId | UnitId; // ID of the resource, technology, or building
+  amount?: number; // Amount required (if applicable)
+}
+import { EffectDefinition } from "./effect-definition.interface";
+import { Prerequisite } from "./prerequisite.interface";
+import { ResourceCost } from "./resource-cost.interface";
+
+export interface UpgradeDefinition {
+  level: number; // Level of the upgrade
+  cost: ResourceCost[]; // Cost for this upgrade
+  time: number; // Time required in seconds
+  prerequisites?: Prerequisite[]; // Conditions to unlock this upgrade
+  effects?: EffectDefinition[]; // Effects of this upgrade (e.g., increased production)
+}

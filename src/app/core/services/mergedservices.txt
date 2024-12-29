@@ -1,0 +1,320 @@
+// core/services/static-data.service.ts
+import { Injectable, ResourceStatus } from '@angular/core';
+import {
+  GameConfig,
+  EraDefinition,
+  ResourceDefinition,
+  BuildingDefinition,
+} from '../models/interfaces';
+import { EffectDefinitionType } from '../enumerators/effect-definition-type.enum';
+import { ResourceCategory } from '../enumerators/resource-category.enum';
+import { Ages } from '../enumerators/ages.enum';
+import { BuildingType } from '../enumerators/building-type.enum';
+import { UnitType } from '../enumerators/unit-type.enum';
+import { ConditionType } from '../enumerators/condition-type.enum';
+import { BuildingId } from '../enumerators/building-id.enum';
+import { ResourceId } from '../enumerators/resource-id.enum';
+import { TechnologyId } from '../enumerators/technology-id.enum';
+import { UnitId } from '../enumerators/unit-id.enum';
+
+@Injectable({
+  providedIn: 'root',
+})
+export class StaticDataService {
+  private static gameConfig: GameConfig;
+
+  constructor() {
+    StaticDataService.gameConfig = this.loadStaticData();
+  }
+
+  private loadStaticData(): GameConfig {
+    return {
+      eras: [
+        {
+          id: Ages.TRIBAL,
+          name: 'Tribal Age',
+          description:
+            'The dawn of civilization, focusing on survival and basic tools.',
+          unlockRequirements: [],
+          technologies: [
+            {
+              id: 'fire_making',
+              name: 'Fire Making',
+              cost: [{ resourceId: 'wood', amount: 50 }],
+              time: 100,
+              prerequisites: [],
+              description:
+                'Allows your people to use fire for cooking and warmth.',
+              age: Ages.TRIBAL,
+              unlocks: [],
+              effects: [],
+            },
+            {
+              id: 'forestry',
+              name: 'Forestry',
+              cost: [
+                { resourceId: 'wood', amount: 200 },
+                { resourceId: 'food', amount: 100 },
+              ],
+              time: 300,
+              prerequisites: [
+                { type: 'building', id: 'wood_cutter', level: 2 },
+              ],
+              description: 'Unlocks advanced wood harvesting techniques.',
+              age: Ages.TRIBAL,
+              unlocks: [
+                {
+                  type: ConditionType.BUILDING,
+                  id: BuildingId.WOOD_CUTTER,
+                  amount: 2,
+                },
+              ],
+              effects: [
+                {
+                  type: EffectDefinitionType.PRODUCTIONBOOST,
+                  targetId: 'wood',
+                  multiplier: 1.5,
+                },
+              ],
+            },
+          ],
+          buildings: [],
+          units: [],
+          ages: [],
+        },
+        {
+          id: Ages.IRON,
+          name: 'Iron Age',
+          description: 'Advances in metallurgy and structured societies.',
+          unlockRequirements: [
+            {
+              type: ConditionType.BUILDING,
+              id: TechnologyId.IRON_WORKING,
+              amount: 1,
+            },
+          ],
+          technologies: [
+            {
+              id: 'iron_working',
+              name: 'Iron Working',
+              cost: [
+                { resourceId: 'iron', amount: 200 },
+                { resourceId: 'stone', amount: 100 },
+              ],
+              time: 400,
+              prerequisites: [{ type: 'technology', id: 'bronze_smelting' }],
+              description: 'Unlocks advanced iron tools and weapons.',
+              age: Ages.IRON,
+              unlocks: [
+                {
+                  type: ConditionType.BUILDING,
+                  id: BuildingId.BLACKSMITH,
+                  amount: 1,
+                },
+              ],
+              effects: [
+                {
+                  type: EffectDefinitionType.PRODUCTIONBOOST,
+                  targetId: 'iron',
+                  multiplier: 1.5,
+                },
+              ],
+            },
+          ],
+          buildings: [],
+          units: [],
+          ages: [],
+        },
+      ],
+      globalResources: [
+        {
+          id: 'wood',
+          name: 'Wood',
+          description:
+            'A basic building material, essential for construction and tools.',
+          baseValue: 1,
+          category: ResourceCategory.BASIC,
+        },
+        {
+          id: 'stone',
+          name: 'Stone',
+          description: 'Used for construction and crafting.',
+          baseValue: 2,
+          category: ResourceCategory.BASIC,
+        },
+        {
+          id: 'iron',
+          name: 'Iron',
+          description: 'A strategic resource for advanced tools and weapons.',
+          baseValue: 5,
+          category: ResourceCategory.STRATEGIC,
+        },
+      ],
+      globalTechnologies: [
+        {
+          id: 'fire_making',
+          name: 'Fire Making',
+          cost: [{ resourceId: 'wood', amount: 50 }],
+          time: 100,
+          prerequisites: [],
+          description: 'Allows your people to use fire for cooking and warmth.',
+          age: Ages.TRIBAL,
+          unlocks: [],
+          effects: [],
+        },
+        {
+          id: 'iron_working',
+          name: 'Iron Working',
+          cost: [
+            { resourceId: 'iron', amount: 200 },
+            { resourceId: 'stone', amount: 100 },
+          ],
+          time: 400,
+          prerequisites: [{ type: 'technology', id: 'bronze_smelting' }],
+          description: 'Unlocks advanced iron tools and weapons.',
+          age: Ages.IRON,
+          unlocks: [
+            {
+              type: ConditionType.BUILDING,
+              id: BuildingId.BLACKSMITH,
+              amount: 1,
+            },
+          ],
+          effects: [
+            {
+              type: EffectDefinitionType.PRODUCTIONBOOST,
+              targetId: 'iron',
+              multiplier: 1.5,
+            },
+          ],
+        },
+      ],
+      globalUnits: [
+        {
+          id: 'tribal_warrior',
+          name: 'Tribal Warrior',
+          description: 'A basic combat unit for defending your settlement.',
+          age: Ages.TRIBAL,
+          cost: [
+            { resourceId: 'food', amount: 50 },
+            { resourceId: 'wood', amount: 20 },
+          ],
+          stats: {
+            attack: 5,
+            defense: 2,
+            health: 20,
+            speed: 3,
+          },
+          category: UnitType.MILITARY,
+          upgrades: [],
+        },
+        {
+          id: 'iron_swordsman',
+          name: 'Iron Swordsman',
+          description: 'A heavily armed soldier of the Iron Age.',
+          age: Ages.IRON,
+          cost: [
+            { resourceId: 'iron', amount: 100 },
+            { resourceId: 'food', amount: 50 },
+          ],
+          stats: {
+            attack: 15,
+            defense: 10,
+            health: 50,
+            speed: 2,
+          },
+          category: UnitType.MILITARY,
+          upgrades: [],
+        },
+      ],
+      globalBuildings: [
+        {
+          id: 'wood_cutter',
+          name: 'Wood Cutter',
+          description: 'Harvests wood from nearby forests.',
+          age: Ages.TRIBAL,
+          baseCost: [
+            { resourceId: 'wood', amount: 50 },
+            { resourceId: 'stone', amount: 20 },
+          ],
+          upgrades: [
+            {
+              level: 1,
+              cost: [
+                { resourceId: 'wood', amount: 100 },
+                { resourceId: 'stone', amount: 50 },
+              ],
+              time: 120,
+              effects: [
+                {
+                  type: EffectDefinitionType.PRODUCTIONBOOST,
+                  targetId: 'wood',
+                  multiplier: 1.1,
+                },
+              ],
+            },
+            {
+              level: 2,
+              cost: [
+                { resourceId: 'wood', amount: 150 },
+                { resourceId: 'stone', amount: 100 },
+              ],
+              time: 180,
+              prerequisites: [{ type: 'technology', id: 'forestry' }],
+              effects: [
+                {
+                  type: EffectDefinitionType.PRODUCTIONBOOST,
+                  targetId: 'wood',
+                  multiplier: 1.5,
+                },
+              ],
+            },
+          ],
+          production: [
+            {
+              resourceId: 'wood',
+              amountPerMinute: 10,
+            },
+          ],
+          unlocks: [],
+          category: BuildingType.ECONOMIC,
+        },
+        {
+          id: 'blacksmith',
+          name: 'Blacksmith',
+          description: 'Produces tools and upgrades using iron.',
+          age: Ages.IRON,
+          baseCost: [
+            { resourceId: 'wood', amount: 100 },
+            { resourceId: 'stone', amount: 200 },
+          ],
+          upgrades: [],
+          production: [
+            {
+              resourceId: 'iron_tools',
+              amountPerMinute: 5,
+            },
+          ],
+          unlocks: [{ type: ConditionType.UNIT, id: UnitId.IRONSWORDSMAN }],
+          category: BuildingType.MILITARY,
+        },
+      ],
+    };
+  }
+
+  public static getConfig(): GameConfig {
+    return StaticDataService.gameConfig;
+  }
+
+  public static getEras(): EraDefinition[] {
+    return StaticDataService.gameConfig.eras;
+  }
+
+  public static getResources(): ResourceDefinition[] {
+    return StaticDataService.gameConfig.globalResources;
+  }
+
+  public static getBuildings(): BuildingDefinition[] {
+    return StaticDataService.gameConfig.globalBuildings;
+  }
+}

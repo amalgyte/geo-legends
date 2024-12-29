@@ -1,0 +1,26 @@
+.notifications {
+    background: #fff;
+    border: 1px solid #ddd;
+    padding: 1rem;
+  
+    ul {
+      list-style: none;
+      padding: 0;
+  
+      li {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 0.5rem;
+  
+        .delivered {
+          color: green;
+        }
+  
+        .timestamp {
+          font-size: 0.8rem;
+          color: #888;
+        }
+      }
+    }
+  }
+  

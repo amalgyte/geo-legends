@@ -1,0 +1,112 @@
+export enum Ages {
+  TRIBAL = 'tribal_age',
+  STONE = 'stone_age',
+  BRONZE = 'bronze_age',
+  IRON = 'iron_age',
+  CLASSICAL = 'classical_age',
+  HELLENISTIC = 'hellenistic_age',
+  ROMAN = 'roman_age',
+  EARLY_MEDIEVAL = 'early_medieval',
+  HIGH_MEDIEVAL = 'high_medieval',
+  LATE_MEDIEVAL = 'late_medieval',
+  RENAISSANCE = 'renaissance_age',
+  INDUSTRIAL = 'industrial_revolution',
+  GLOBAL_CONFLICT = 'global_conflict',
+  COLD_WAR = 'cold_war_age',
+  SPACE = 'space_age',
+  AI = 'ai_era',
+  GALACTIC = 'galactic_age',
+}
+export enum AgreementTermType {
+  RESOURCE = 'resource',
+  TERRITORY = 'territory',
+  NON_AGRESSION = 'non-aggression',
+}
+export enum AgreementType {
+  TRADE = 'trade',
+  ALLIANCE = 'alliance',
+  PEACE = 'peace',
+  NON_AGGRESSION = 'non-aggression',
+}
+export enum BattleObjectiveType {
+  ELIMINATION = 'elimination',
+  CAPTURE = 'capture',
+  DEFENSE = 'defense',
+}
+export enum BattleParticipantStrategy {
+  AGGRESSIVE = 'aggressive',
+  DEFENSIVE = 'defensive',
+  BALANCED = 'balanced',
+}
+export enum BattleStatus {
+  ONGOING = 'ongoing',
+  COMPLETED = 'completed',
+}
+export enum BuildingId {
+    WOOD_CUTTER = "wood_cutter",
+    HUNTER_HUT = "hunter_hut",
+    BLACKSMITH = "blacksmith",
+}
+export enum BuildingType {
+  ECONOMIC = 'economic',
+  MILITARY = 'military',
+  CULTURAL = 'cultural',
+}
+export enum ConditionType {
+  TIME = 'time',
+  EVENT = 'event',
+  RESOURCE = 'resource',
+  TECHNOLOGY = 'technology',
+  BUILDING = 'building',
+  UNIT = 'unit',
+}
+export enum EffectDefinitionType {
+  PRODUCTIONBOOST = 'increase-production',
+  MILITARYBOOST = 'military-might',
+  CULTUREBOOST = 'cultural-boost',
+}
+export enum EntityType {
+  PLAYER = 'player',
+  NPC = 'NPC',
+  FACTION = 'faction',
+}
+export enum RelationshipStatus {
+  FRIENDLY = 'friendly',
+  NEUTRAL = 'neutral',
+  HOSTILE = 'hostile',
+}
+export enum ResourceCategory {
+  BASIC = 'basic',
+  LUXURY = 'luxury',
+  STRATEGIC = 'strategic',
+}
+export enum ResourceId {
+    WOOD = "wood",
+    STONE = "stone",
+    IRON = "iron",
+}
+export enum TechnologyId {
+  FIRE_MAKING = 'fire_making',
+  FORESTRY = 'forestry',
+  IRON_WORKING = 'iron_working',
+}
+export enum TerrainType {
+  PLAINS = 'plains',
+  FOREST = 'forest',
+  MOUNTAIN = 'mountain',
+  URBAN = 'urban',
+}
+export enum UnitActionType {
+  ATTACK = 'attack',
+  MOVE = 'move',
+  DEFEND = 'defend',
+}
+export enum UnitId {
+  ARCHER = 'archer',
+  IRONSWORDSMAN = 'iron_swordsman',
+  VILLAGER = 'villager',
+}
+export enum UnitType {
+  MILITARY = 'military',
+  CIVILIAN = 'civilian',
+}

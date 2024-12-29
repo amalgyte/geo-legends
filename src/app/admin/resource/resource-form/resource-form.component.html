@@ -1,0 +1,49 @@
+<div class="resource-form">
+  <h2>{{ isEditMode ? "Edit Resource" : "Add Resource" }}</h2>
+  <form (ngSubmit)="saveResource()">
+    <label for="name">Resource Name</label>
+    <input id="name" [(ngModel)]="resource.name" name="name" required />
+
+    <label for="description">Description</label>
+    <textarea
+      id="description"
+      [(ngModel)]="resource.description"
+      name="description"
+      rows="4"
+    ></textarea>
+
+    <label for="baseValue">Base Value</label>
+    <input
+      id="baseValue"
+      type="number"
+      [(ngModel)]="resource.baseValue"
+      name="baseValue"
+      required
+    />
+
+    <label for="category">Category</label>
+    <select
+      id="category"
+      [(ngModel)]="resource.category"
+      name="category"
+      required
+    >
+      <option *ngFor="let category of categories" [value]="category">
+        {{ category }}
+      </option>
+    </select>
+
+    <div class="button-group">
+      <button class="save-btn" type="submit">
+        {{ isEditMode ? "Save Changes" : "Add Resource" }}
+      </button>
+      <button
+        class="cancel-btn"
+        type="button"
+        (click)="router.navigate(['/admin/resources'])"
+      >
+        Cancel
+      </button>
+    </div>
+  </form>
+</div>

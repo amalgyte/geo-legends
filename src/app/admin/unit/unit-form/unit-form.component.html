@@ -1,0 +1,95 @@
+<div class="unit-form">
+    <h2>{{ isEditMode ? 'Edit Unit' : 'Add Unit' }}</h2>
+    <form (ngSubmit)="saveUnit()">
+      <label for="name">Unit Name</label>
+      <input id="name" [(ngModel)]="unit.name" name="name" required />
+  
+      <label for="description">Description</label>
+      <textarea
+        id="description"
+        [(ngModel)]="unit.description"
+        name="description"
+        rows="4"
+      ></textarea>
+  
+      <label for="age">Age</label>
+      <select id="age" [(ngModel)]="unit.age" name="age" required>
+        <ng-container *ngFor="let era of knownEras">
+          <optgroup [label]="era.name">
+            <option *ngFor="let age of era.ages" [value]="age.id">
+              {{ age.name }}
+            </option>
+          </optgroup>
+        </ng-container>
+      </select>
+  
+      <label for="cost">Cost</label>
+      <div class="cost">
+        <ul>
+          <li *ngFor="let cost of unit.cost">
+            {{ cost.resourceId }}: {{ cost.amount }}
+            <button type="button" (click)="removeCost(cost.resourceId)">Remove</button>
+          </li>
+        </ul>
+  
+        <div class="add-cost">
+          <label for="resourceId">Resource</label>
+          <select
+            id="resourceId"
+            [(ngModel)]="newCost.resourceId"
+            name="resourceId"
+          >
+            <option [value]="null">Select Resource</option>
+            <option
+              *ngFor="let resource of resources"
+              [value]="resource"
+              [disabled]="isResourceAdded(resource)"
+            >
+              {{ resource }}
+            </option>
+          </select>
+  
+          <label for="amount">Amount</label>
+          <input
+            id="amount"
+            type="number"
+            [(ngModel)]="newCost.amount"
+            name="amount"
+            min="1"
+          />
+  
+          <button type="button" (click)="addCost()">Add</button>
+        </div>
+      </div>
+  
+      <label for="stats">Stats</label>
+      <div class="stats">
+        <div>
+          <label for="attack">Attack</label>
+          <input id="attack" type="number" [(ngModel)]="unit.stats.attack" name="attack" />
+        </div>
+        <div>
+          <label for="defense">Defense</label>
+          <input id="defense" type="number" [(ngModel)]="unit.stats.defense" name="defense" />
+        </div>
+        <div>
+          <label for="health">Health</label>
+          <input id="health" type="number" [(ngModel)]="unit.stats.health" name="health" />
+        </div>
+        <div>
+          <label for="speed">Speed</label>
+          <input id="speed" type="number" [(ngModel)]="unit.stats.speed" name="speed" />
+        </div>
+      </div>
+  
+      <div class="button-group">
+        <button class="save-btn" type="submit">
+          {{ isEditMode ? 'Save Changes' : 'Add Unit' }}
+        </button>
+        <button class="cancel-btn" type="button" (click)="router.navigate(['/admin/units'])">
+          Cancel
+        </button>
+      </div>
+    </form>
+  </div>
+  

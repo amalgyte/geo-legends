@@ -1,0 +1,80 @@
+<div class="building-form">
+  <h2>{{ isEditMode ? "Edit Building" : "Add Building" }}</h2>
+  <form (ngSubmit)="saveBuilding()">
+    <label for="name">Building Name</label>
+    <input id="name" [(ngModel)]="building.name" name="name" required />
+
+    <label for="description">Description</label>
+    <textarea
+      id="description"
+      [(ngModel)]="building.description"
+      name="description"
+      rows="4"
+    ></textarea>
+
+    <label for="age">Age</label>
+    <select id="age" [(ngModel)]="building.age" name="age" required>
+      <ng-container *ngFor="let era of knownEras">
+        <optgroup [label]="era.name">
+          <option *ngFor="let age of era.ages" [value]="age.id">
+            {{ age.name }}
+          </option>
+        </optgroup>
+      </ng-container>
+    </select>
+
+    <label for="baseCost">Base Cost</label>
+    <div class="base-cost">
+      <ul>
+        <li *ngFor="let cost of building.baseCost">
+          {{ cost.resourceId }}: {{ cost.amount }}
+          <button type="button" (click)="removeBaseCost(cost.resourceId)">
+            Remove
+          </button>
+        </li>
+      </ul>
+
+      <div class="add-base-cost">
+        <label for="resourceId">Resource</label>
+        <select
+          id="resourceId"
+          [(ngModel)]="newBaseCost.resourceId"
+          name="resourceId"
+        >
+          <option [value]="null">Select Resource</option>
+          <option
+            *ngFor="let resource of resources"
+            [value]="resource"
+            [disabled]="isResourceAdded(resource)"
+          >
+            {{ resource }}
+          </option>
+        </select>
+
+        <label for="amount">Amount</label>
+        <input
+          id="amount"
+          type="number"
+          [(ngModel)]="newBaseCost.amount"
+          name="amount"
+          min="1"
+        />
+
+        <button type="button" (click)="addBaseCost()">Add</button>
+      </div>
+    </div>
+
+    <div class="button-group">
+      <button class="save-btn" type="submit">
+        {{ isEditMode ? "Save Changes" : "Add Building" }}
+      </button>
+      <button
+        class="cancel-btn"
+        type="button"
+        (click)="router.navigate(['/admin/buildings'])"
+      >
+        Cancel
+      </button>
+    </div>
+  </form>
+</div>

@@ -1,0 +1,16 @@
+.resources {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap; // Allows items to wrap onto new lines
+  gap: 1px; // Adjust spacing between items
+  justify-content: center; // Align items to the start (or center, if desired)
+  padding: 5px; // Optional padding for the container
+
+  div {
+    background-color: tan;
+    border-radius: 8px;
+    height: 75px;
+    flex: 0 0 auto; // Ensures each item maintains its intrinsic size
+  }
+}
+
