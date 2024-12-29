@@ -36,7 +36,7 @@
     <div class="ages">
       <ul>
         <li *ngFor="let age of era.ages">
-          {{ age.name }}
+          {{ age.name }} ({{ age.sequence }})
           <button type="button" *ngIf="age.id" (click)="removeAge(age.id!)">
             Remove
           </button>
@@ -72,6 +72,15 @@
               name="newAgeDescription"
               rows="2"
             ></textarea>
+          </div>
+          <div class="form-group">
+            <label for="newAgeSequence">Order</label>
+            <input
+              id="newAgeSequence"
+              [(ngModel)]="newAge.sequence"
+              name="newAgeSequence"
+              type="number"
+            />
           </div>
           <div class="form-group">
             <button type="button" class="add-age-btn" (click)="addNewAge()">

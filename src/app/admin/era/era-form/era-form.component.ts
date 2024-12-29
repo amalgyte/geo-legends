@@ -1,23 +1,23 @@
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router, RouterModule } from '@angular/router';
-import { StaticDataService } from '../../../core/services/static-data.service';
-import { EraDefinition, AgeDefinition } from '../../../core/models/interfaces';
-import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import { Component, OnInit } from "@angular/core";
+import { ActivatedRoute, Router, RouterModule } from "@angular/router";
+import { StaticDataService } from "../../../core/services/static-data.service";
+import { EraDefinition, AgeDefinition } from "../../../core/models/interfaces";
+import { CommonModule } from "@angular/common";
+import { FormsModule } from "@angular/forms";
 
 @Component({
-  selector: 'app-era-form',
-  templateUrl: './era-form.component.html',
-  styleUrls: ['./era-form.component.scss'],
+  selector: "app-era-form",
+  templateUrl: "./era-form.component.html",
+  styleUrls: ["./era-form.component.scss"],
   imports: [CommonModule, RouterModule, FormsModule],
 })
 export class EraFormComponent implements OnInit {
   era: EraDefinition = {
-    id: '',
-    name: '',
-    description: '',
-    previousEraId: '',
-    nextEraId: '',
+    id: "",
+    name: "",
+    description: "",
+    previousEraId: "",
+    nextEraId: "",
     ages: [],
     unlockRequirements: [],
     technologies: [],
@@ -37,7 +37,7 @@ export class EraFormComponent implements OnInit {
 
   ngOnInit(): void {
     this.knownEras = this.staticDataService.getEras();
-    const eraId = this.route.snapshot.paramMap.get('id');
+    const eraId = this.route.snapshot.paramMap.get("id");
     if (eraId) {
       const existingEra = this.staticDataService.getEraById(eraId);
       if (existingEra) {
@@ -46,8 +46,8 @@ export class EraFormComponent implements OnInit {
         this.isEditMode = true;
         this.filterEras(eraId); // Filter eras to exclude the current one
       } else {
-        alert('Era not found!');
-        this.router.navigate(['/admin/eras']);
+        alert("Era not found!");
+        this.router.navigate(["/admin/eras"]);
       }
     }
   }
@@ -66,23 +66,24 @@ export class EraFormComponent implements OnInit {
   createEmptyAge(): AgeDefinition {
     return {
       id: null as any, // Temporary placeholder
-      name: '',
-      description: '',
-      previousAgeId: '',
-      nextAgeId: '',
+      name: "",
+      description: "",
+      previousAgeId: "",
+      nextAgeId: "",
       unlockRequirements: [],
       technologies: [],
       buildings: [],
       units: [],
+      sequence: 999,
     };
   }
 
   addNewAge(): void {
-    if (this.newAge.name.trim() !== '') {
+    if (this.newAge.name.trim() !== "") {
       // Generate a unique ID by combining the Era ID and a sanitized version of the Age name
       const sanitizedAgeName = this.newAge.name
         .toLowerCase()
-        .replace(/\s+/g, '_'); // Replace spaces with underscores
+        .replace(/\s+/g, "_"); // Replace spaces with underscores
       this.newAge.id = `${this.era.id}_${sanitizedAgeName}` as any; // Assign the unique ID
 
       this.era.ages.push({ ...this.newAge }); // Add the new age to the era
@@ -111,7 +112,7 @@ export class EraFormComponent implements OnInit {
       this.era.id = `era_${Date.now()}`; // Generate a unique ID for a new era
       this.staticDataService.addEra(this.era); // Add new era
     }
-    this.router.navigate(['/admin/eras']); // Redirect to the era list
+    this.router.navigate(["/admin/eras"]); // Redirect to the era list
   }
 
   addExistingAgeFromEvent(event: Event): void {

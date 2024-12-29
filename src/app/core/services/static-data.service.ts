@@ -1,5 +1,5 @@
 // core/services/static-data.service.ts
-import { Injectable, ResourceStatus } from '@angular/core';
+import { Injectable, ResourceStatus } from "@angular/core";
 import {
   GameConfig,
   EraDefinition,
@@ -8,20 +8,20 @@ import {
   TechnologyDefinition,
   UnitDefinition,
   AgeDefinition,
-} from '../models/interfaces';
-import { EffectDefinitionType } from '../enumerators/effect-definition-type.enum';
-import { ResourceCategory } from '../enumerators/resource-category.enum';
-import { Ages } from '../enumerators/ages.enum';
-import { BuildingType } from '../enumerators/building-type.enum';
-import { UnitType } from '../enumerators/unit-type.enum';
-import { ConditionType } from '../enumerators/condition-type.enum';
-import { BuildingId } from '../enumerators/building-id.enum';
-import { ResourceId } from '../enumerators/resource-id.enum';
-import { TechnologyId } from '../enumerators/technology-id.enum';
-import { UnitId } from '../enumerators/unit-id.enum';
+} from "../models/interfaces";
+import { EffectDefinitionType } from "../enumerators/effect-definition-type.enum";
+import { ResourceCategory } from "../enumerators/resource-category.enum";
+import { Ages } from "../enumerators/ages.enum";
+import { BuildingType } from "../enumerators/building-type.enum";
+import { UnitType } from "../enumerators/unit-type.enum";
+import { ConditionType } from "../enumerators/condition-type.enum";
+import { BuildingId } from "../enumerators/building-id.enum";
+import { ResourceId } from "../enumerators/resource-id.enum";
+import { TechnologyId } from "../enumerators/technology-id.enum";
+import { UnitId } from "../enumerators/unit-id.enum";
 
 @Injectable({
-  providedIn: 'root',
+  providedIn: "root",
 })
 export class StaticDataService {
   private gameConfig: GameConfig;
@@ -34,26 +34,27 @@ export class StaticDataService {
     return {
       eras: [
         {
-          id: 'early_civilization',
-          name: 'Early Civilization',
+          id: "early_civilization",
+          name: "Early Civilization",
           description:
-            'The formation of basic societies and survival techniques.',
+            "The formation of basic societies and survival techniques.",
           unlockRequirements: [],
           ages: [
             {
               id: Ages.TRIBAL,
-              name: 'Tribal Age',
+              name: "Tribal Age",
               description:
-                'The dawn of civilization, focusing on survival and basic tools.',
+                "The dawn of civilization, focusing on survival and basic tools.",
               unlockRequirements: [],
               technologies: [TechnologyId.FIRE_MAKING, TechnologyId.FORESTRY],
               buildings: [BuildingId.WOOD_CUTTER],
               units: [UnitId.TRIBAL_WARRIOR],
+              sequence: 1,
             },
             {
               id: Ages.STONE,
-              name: 'Stone Age',
-              description: 'The age of stone tools and basic settlements.',
+              name: "Stone Age",
+              description: "The age of stone tools and basic settlements.",
               unlockRequirements: [
                 {
                   type: ConditionType.RESOURCE,
@@ -67,14 +68,15 @@ export class StaticDataService {
               ],
               buildings: [BuildingId.HUNTER_HUT, BuildingId.STONE_QUARRY],
               units: [UnitId.VILLAGER, UnitId.STONE_THROWER],
+              sequence: 2,
             },
           ],
           technologies: [
             {
               id: TechnologyId.FIRE_MAKING,
-              name: 'Fire Making',
+              name: "Fire Making",
               description:
-                'Allows your people to use fire for cooking and warmth.',
+                "Allows your people to use fire for cooking and warmth.",
               cost: [{ resourceId: ResourceId.WOOD, amount: 50 }],
               time: 100,
               age: Ages.TRIBAL,
@@ -84,9 +86,9 @@ export class StaticDataService {
           ],
           buildings: [
             {
-              id: 'wood_cutter',
-              name: 'Wood Cutter',
-              description: 'Harvests wood from nearby forests.',
+              id: "wood_cutter",
+              name: "Wood Cutter",
+              description: "Harvests wood from nearby forests.",
               age: Ages.TRIBAL,
               baseCost: [
                 { resourceId: ResourceId.WOOD, amount: 50 },
@@ -118,9 +120,9 @@ export class StaticDataService {
           ],
           units: [
             {
-              id: 'tribal_warrior',
-              name: 'Tribal Warrior',
-              description: 'A basic combat unit for defending your settlement.',
+              id: "tribal_warrior",
+              name: "Tribal Warrior",
+              description: "A basic combat unit for defending your settlement.",
               age: Ages.TRIBAL,
               cost: [
                 { resourceId: ResourceId.FOOD, amount: 50 },
@@ -139,10 +141,10 @@ export class StaticDataService {
           previousEraId: undefined,
         },
         {
-          id: 'metal_age',
-          name: 'Metal Age',
+          id: "metal_age",
+          name: "Metal Age",
           description:
-            'The discovery and utilization of metals revolutionized tools and weapons.',
+            "The discovery and utilization of metals revolutionized tools and weapons.",
           unlockRequirements: [
             {
               type: ConditionType.TECHNOLOGY,
@@ -153,17 +155,18 @@ export class StaticDataService {
           ages: [
             {
               id: Ages.BRONZE,
-              name: 'Bronze Age',
-              description: 'Advances in bronze tools and early trade networks.',
+              name: "Bronze Age",
+              description: "Advances in bronze tools and early trade networks.",
               unlockRequirements: [],
               technologies: [TechnologyId.BRONZE_SMELTING],
               buildings: [BuildingId.BRONZE_FOUNDRY],
               units: [UnitId.BRONZE_SPEARMAN],
+              sequence: 1,
             },
             {
               id: Ages.IRON,
-              name: 'Iron Age',
-              description: 'Advances in metallurgy and structured societies.',
+              name: "Iron Age",
+              description: "Advances in metallurgy and structured societies.",
               unlockRequirements: [
                 {
                   type: ConditionType.BUILDING,
@@ -171,16 +174,17 @@ export class StaticDataService {
                   amount: 1,
                 },
               ],
-              technologies: ['iron_working'],
-              buildings: ['blacksmith'],
-              units: ['iron_swordsman'],
+              technologies: ["iron_working"],
+              buildings: ["blacksmith"],
+              units: ["iron_swordsman"],
+              sequence: 2,
             },
           ],
           technologies: [
             {
-              id: 'bronze_smelting',
-              name: 'Bronze Smelting',
-              description: 'Unlocks advanced metalworking techniques.',
+              id: "bronze_smelting",
+              name: "Bronze Smelting",
+              description: "Unlocks advanced metalworking techniques.",
               cost: [
                 { resourceId: ResourceId.STONE, amount: 100 },
                 { resourceId: ResourceId.WOOD, amount: 200 },
@@ -197,15 +201,15 @@ export class StaticDataService {
               effects: [],
             },
             {
-              id: 'iron_working',
-              name: 'Iron Working',
-              description: 'Unlocks advanced iron tools and weapons.',
+              id: "iron_working",
+              name: "Iron Working",
+              description: "Unlocks advanced iron tools and weapons.",
               cost: [
                 { resourceId: ResourceId.IRON, amount: 200 },
                 { resourceId: ResourceId.STONE, amount: 100 },
               ],
               time: 400,
-              prerequisites: [{ type: 'technology', id: 'bronze_smelting' }],
+              prerequisites: [{ type: "technology", id: "bronze_smelting" }],
               age: Ages.IRON,
               unlocks: [
                 {
@@ -217,7 +221,7 @@ export class StaticDataService {
               effects: [
                 {
                   type: EffectDefinitionType.PRODUCTIONBOOST,
-                  targetId: 'iron',
+                  targetId: "iron",
                   multiplier: 1.5,
                 },
               ],
@@ -225,9 +229,9 @@ export class StaticDataService {
           ],
           buildings: [
             {
-              id: 'blacksmith',
-              name: 'Blacksmith',
-              description: 'Produces tools and upgrades using iron.',
+              id: "blacksmith",
+              name: "Blacksmith",
+              description: "Produces tools and upgrades using iron.",
               age: Ages.IRON,
               baseCost: [
                 { resourceId: ResourceId.WOOD, amount: 100 },
@@ -235,7 +239,7 @@ export class StaticDataService {
               ],
               production: [
                 {
-                  resourceId: 'iron_tools',
+                  resourceId: "iron_tools",
                   amountPerMinute: 5,
                 },
               ],
@@ -246,9 +250,9 @@ export class StaticDataService {
           ],
           units: [
             {
-              id: 'iron_swordsman',
-              name: 'Iron Swordsman',
-              description: 'A heavily armed soldier of the Iron Age.',
+              id: "iron_swordsman",
+              name: "Iron Swordsman",
+              description: "A heavily armed soldier of the Iron Age.",
               age: Ages.IRON,
               cost: [
                 { resourceId: ResourceId.IRON, amount: 100 },
@@ -270,23 +274,23 @@ export class StaticDataService {
       globalResources: [
         {
           id: ResourceId.WOOD,
-          name: 'Wood',
+          name: "Wood",
           description:
-            'A basic building material, essential for construction and tools.',
+            "A basic building material, essential for construction and tools.",
           baseValue: 1,
           category: ResourceCategory.BASIC,
         },
         {
           id: ResourceId.STONE,
-          name: 'Stone',
-          description: 'Used for construction and crafting.',
+          name: "Stone",
+          description: "Used for construction and crafting.",
           baseValue: 2,
           category: ResourceCategory.BASIC,
         },
         {
           id: ResourceId.IRON,
-          name: 'Iron',
-          description: 'A strategic resource for advanced tools and weapons.',
+          name: "Iron",
+          description: "A strategic resource for advanced tools and weapons.",
           baseValue: 5,
           category: ResourceCategory.STRATEGIC,
         },
@@ -294,25 +298,25 @@ export class StaticDataService {
       globalTechnologies: [
         {
           id: TechnologyId.FIRE_MAKING,
-          name: 'Fire Making',
+          name: "Fire Making",
           cost: [{ resourceId: ResourceId.WOOD, amount: 50 }],
           time: 100,
           prerequisites: [],
-          description: 'Allows your people to use fire for cooking and warmth.',
+          description: "Allows your people to use fire for cooking and warmth.",
           age: Ages.TRIBAL,
           unlocks: [],
           effects: [],
         },
         {
           id: TechnologyId.IRON_WORKING,
-          name: 'Iron Working',
+          name: "Iron Working",
           cost: [
             { resourceId: ResourceId.IRON, amount: 200 },
             { resourceId: ResourceId.STONE, amount: 100 },
           ],
           time: 400,
-          prerequisites: [{ type: 'technology', id: 'bronze_smelting' }],
-          description: 'Unlocks advanced iron tools and weapons.',
+          prerequisites: [{ type: "technology", id: "bronze_smelting" }],
+          description: "Unlocks advanced iron tools and weapons.",
           age: Ages.IRON,
           unlocks: [
             {
@@ -333,8 +337,8 @@ export class StaticDataService {
       globalUnits: [
         {
           id: UnitId.TRIBAL_WARRIOR,
-          name: 'Tribal Warrior',
-          description: 'A basic combat unit for defending your settlement.',
+          name: "Tribal Warrior",
+          description: "A basic combat unit for defending your settlement.",
           age: Ages.TRIBAL,
           cost: [
             { resourceId: ResourceId.FOOD, amount: 50 },
@@ -351,8 +355,8 @@ export class StaticDataService {
         },
         {
           id: UnitId.IRON_SWORDSMAN,
-          name: 'Iron Swordsman',
-          description: 'A heavily armed soldier of the Iron Age.',
+          name: "Iron Swordsman",
+          description: "A heavily armed soldier of the Iron Age.",
           age: Ages.IRON,
           cost: [
             { resourceId: ResourceId.IRON, amount: 100 },
@@ -371,8 +375,8 @@ export class StaticDataService {
       globalBuildings: [
         {
           id: BuildingId.WOOD_CUTTER,
-          name: 'Wood Cutter',
-          description: 'Harvests wood from nearby forests.',
+          name: "Wood Cutter",
+          description: "Harvests wood from nearby forests.",
           age: Ages.TRIBAL,
           baseCost: [
             { resourceId: ResourceId.WOOD, amount: 50 },
@@ -401,7 +405,7 @@ export class StaticDataService {
                 { resourceId: ResourceId.STONE, amount: 100 },
               ],
               time: 180,
-              prerequisites: [{ type: 'technology', id: 'forestry' }],
+              prerequisites: [{ type: "technology", id: "forestry" }],
               effects: [
                 {
                   type: EffectDefinitionType.PRODUCTIONBOOST,
@@ -422,8 +426,8 @@ export class StaticDataService {
         },
         {
           id: BuildingId.BLACKSMITH,
-          name: 'Blacksmith',
-          description: 'Produces tools and upgrades using iron.',
+          name: "Blacksmith",
+          description: "Produces tools and upgrades using iron.",
           age: Ages.IRON,
           baseCost: [
             { resourceId: ResourceId.WOOD, amount: 100 },
@@ -432,7 +436,7 @@ export class StaticDataService {
           upgrades: [],
           production: [
             {
-              resourceId: 'iron_tools',
+              resourceId: "iron_tools",
               amountPerMinute: 5,
             },
           ],
@@ -449,12 +453,11 @@ export class StaticDataService {
 
   public getAges(eraId: string): AgeDefinition[] {
     const era = this.getEraById(eraId);
-    return era ? era.ages : [];
+    return era ? era.ages.sort((a, b) => a.sequence - b.sequence) : [];
   }
-  
 
   public getEras(): EraDefinition[] {
-    console.log('getEras', this.gameConfig);
+    console.log("getEras", this.gameConfig);
     return this.gameConfig.eras;
   }
 

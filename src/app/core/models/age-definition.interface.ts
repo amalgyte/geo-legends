@@ -11,4 +11,5 @@ export interface AgeDefinition {
   technologies: string[]; // IDs of available technologies in this age
   buildings: string[]; // IDs of buildings available in this age
   units: string[]; // IDs of units available in this age
+  sequence: number;           // Order of the age in the era
 }
