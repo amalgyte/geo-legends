@@ -1,27 +1,27 @@
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router, RouterModule } from '@angular/router';
-import { StaticDataService } from '../../../core/services/static-data.service';
+import { Component, OnInit } from "@angular/core";
+import { ActivatedRoute, Router, RouterModule } from "@angular/router";
+import { StaticDataService } from "../../../core/services/static-data.service";
 import {
   UnitDefinition,
   EraDefinition,
   AgeDefinition,
   ResourceCost,
-} from '../../../core/models/interfaces';
-import { UnitType } from '../../../core/enumerators/unit-type.enum';
-import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+} from "../../../core/models/interfaces";
+import { UnitType } from "../../../core/enumerators/unit-type.enum";
+import { CommonModule } from "@angular/common";
+import { FormsModule } from "@angular/forms";
 
 @Component({
-  selector: 'app-unit-form',
-  templateUrl: './unit-form.component.html',
-  styleUrls: ['./unit-form.component.scss'],
+  selector: "app-unit-form",
+  templateUrl: "./unit-form.component.html",
+  styleUrls: ["./unit-form.component.scss"],
   imports: [CommonModule, RouterModule, FormsModule],
 })
 export class UnitFormComponent implements OnInit {
   unit: UnitDefinition = {
-    id: '',
-    name: '',
-    description: '',
+    id: "",
+    name: "",
+    description: "",
     age: null as any,
     cost: [],
     stats: {
@@ -38,7 +38,7 @@ export class UnitFormComponent implements OnInit {
   knownEras: EraDefinition[] = [];
   resources: string[] = []; // List of available resources
   newCost: { resourceId: string; amount: number } = {
-    resourceId: '',
+    resourceId: "",
     amount: 0,
   };
 
@@ -49,19 +49,19 @@ export class UnitFormComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.knownEras = this.staticDataService.getEras(); // Fetch all known eras
+    this.knownEras = this.staticDataService.get("eras"); // Fetch all known eras
     this.resources = this.staticDataService
-      .getResources()
-      .map((resource) => resource.id); // Fetch all resource IDs
-    const unitId = this.route.snapshot.paramMap.get('id');
+      .get("globalResources")
+      .map((resource) => resource.name); // Fetch all resource IDs
+    const unitId = this.route.snapshot.paramMap.get("id");
     if (unitId) {
       const existingUnit = this.staticDataService.getUnitById(unitId);
       if (existingUnit) {
         this.unit = { ...existingUnit };
         this.isEditMode = true;
       } else {
-        alert('Unit not found!');
-        this.router.navigate(['/admin/units']);
+        alert("Unit not found!");
+        this.router.navigate(["/admin/units"]);
       }
     }
   }
@@ -74,7 +74,7 @@ export class UnitFormComponent implements OnInit {
     const { resourceId, amount } = this.newCost;
     if (resourceId && amount > 0 && !this.isResourceAdded(resourceId)) {
       this.unit.cost.push({ resourceId, amount });
-      this.newCost = { resourceId: '', amount: 0 }; // Reset the form
+      this.newCost = { resourceId: "", amount: 0 }; // Reset the form
     }
   }
 
@@ -86,11 +86,11 @@ export class UnitFormComponent implements OnInit {
 
   saveUnit(): void {
     if (this.isEditMode) {
-      this.staticDataService.updateUnit(this.unit); // Update existing unit
+      this.staticDataService.update("globalUnits", this.unit); // Update existing unit
     } else {
-      this.unit.id = `unit_${Date.now()}`; // Generate a unique ID for a new unit
-      this.staticDataService.addUnit(this.unit); // Add new unit
+      // this.unit.id = `unit_${Date.now()}`; // Generate a unique ID for a new unit
+      this.staticDataService.add("globalUnits", this.unit); // Add new unit
     }
-    this.router.navigate(['/admin/units']); // Redirect to the unit list
+    this.router.navigate(["/admin/units"]); // Redirect to the unit list
   }
 }

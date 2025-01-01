@@ -37,7 +37,7 @@ export class MapComponent implements AfterViewInit {
   private gridSize = 50; // Grid cell size in meters
   private metersPerDegreeLatitude = 111320;
   private offscreenBufferFactor = 2; // Multiplier for extending bounds off-screen
-  private zoomThreshold = 15; // Minimum zoom level for rendering the grid
+  private zoomThreshold = 16; // Minimum zoom level for rendering the grid
   private clickTimeout: any = null; // Timer for single and double click detection
   private longClickTimeout: any = null; // Timer for long click detection
   private longClickDuration = 1000; // Time in ms to consider a long click
@@ -83,14 +83,14 @@ export class MapComponent implements AfterViewInit {
         // change this to get the location from a gps service.
         // Then make it possible for the gps service to imitate walking around the map for debug purposes.
         this.gpsMarker = L.circleMarker([latitude, longitude], {
-          radius: 10, // Adjust the size of the circle
+          radius: 8, // Adjust the size of the circle
           color: 'blue', // Border color
           fillColor: 'blue', // Fill color
           fillOpacity: 0.8, // Transparency of the circle
         }).addTo(this.map);
 
         // Center the map on the player's location
-        this.map.setView([latitude, longitude], 15);
+        this.map.setView([latitude, longitude], 17);
       },
       (error) => {
         console.error('Error getting location:', error);
@@ -119,12 +119,12 @@ export class MapComponent implements AfterViewInit {
     this.map = L.map('map', {
       renderer: L.canvas(),
       doubleClickZoom: false, // Disable double-click zoom
-    }).setView(defaultCenter || [51.505, -0.09], 15); // Fallback to default center
+    }).setView(defaultCenter || [51.505, -0.09], 17); // Fallback to default center
 
     L.tileLayer('https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png', {
-      maxZoom: 18,
-      minZoom: 14,
-      attribution: '© OpenStreetMap contributors',
+      maxZoom: 17,
+      minZoom: 1,
+      attribution: '© OpenStreetMap',
     }).addTo(this.map);
 
     this.gridLayer = L.layerGroup().addTo(this.map);

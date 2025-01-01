@@ -20,7 +20,7 @@ export class EraComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.eras = this.staticDataService.getEras();
+    this.eras = this.staticDataService.get('eras');
   }
 
   addEra(): void {
@@ -32,7 +32,7 @@ export class EraComponent implements OnInit {
   }
 
   deleteEra(eraId: string): void {
-    this.staticDataService.deleteEra(eraId);
-    this.eras = this.staticDataService.getEras(); // Refresh list
+    this.staticDataService.delete('eras',eraId);
+    this.eras = this.staticDataService.get('eras'); // Refresh list
   }
 }

@@ -6,6 +6,7 @@ import { EconomyViewComponent } from './ui/economy-view/economy-view.component';
 import { NavigationMenuComponent } from './ui/navigation-menu/navigation-menu.component';
 import { Router, RouterOutlet } from '@angular/router';
 import { FooterComponent } from './ui/footer/footer.component';
+import { StaticDataService } from './core/services/static-data.service';
 
 @Component({
   selector: 'app-root',
@@ -15,7 +16,7 @@ import { FooterComponent } from './ui/footer/footer.component';
 })
 export class AppComponent {
   public currentRouteName = '';
-  constructor(private router: Router) {
+  constructor(private router: Router, private staticDataService: StaticDataService) {
     this.router.events.subscribe(() => {
       if (this.router.url.includes('game')) {
         this.currentRouteName = 'Game';
@@ -25,5 +26,9 @@ export class AppComponent {
         this.currentRouteName = '';
       }
     });
+  }
+  async initializeApp(): Promise<void> {
+    await this.staticDataService.loadStaticData();
+    console.log('Static Data initialized');
   }
 }

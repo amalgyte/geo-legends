@@ -36,13 +36,13 @@ export class EraFormComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.knownEras = this.staticDataService.getEras();
+    this.knownEras = this.staticDataService.get('eras');
     const eraId = this.route.snapshot.paramMap.get("id");
     if (eraId) {
       const existingEra = this.staticDataService.getEraById(eraId);
       if (existingEra) {
         this.era = { ...existingEra };
-        this.loadAvailableAges(eraId); // Fetch available ages
+        // this.loadAvailableAges(eraId); // Fetch available ages
         this.isEditMode = true;
         this.filterEras(eraId); // Filter eras to exclude the current one
       } else {
@@ -56,12 +56,12 @@ export class EraFormComponent implements OnInit {
     this.filteredEras = this.knownEras.filter((era) => era.id !== currentEraId);
   }
 
-  loadAvailableAges(eraId: string): void {
-    const allAges = this.staticDataService.getAges(eraId); // Fetch all ages for this era
-    this.knownAges = allAges.filter(
-      (age) => !this.era.ages.some((eraAge) => eraAge.id === age.id)
-    );
-  }
+  // loadAvailableAges(eraId: string): void {
+  //   const allAges = this.staticDataService.getAges(eraId); // Fetch all ages for this era
+  //   this.knownAges = allAges.filter(
+  //     (age) => !this.era.ages.some((eraAge) => eraAge.id === age.id)
+  //   );
+  // }
 
   createEmptyAge(): AgeDefinition {
     return {
@@ -88,7 +88,7 @@ export class EraFormComponent implements OnInit {
 
       this.era.ages.push({ ...this.newAge }); // Add the new age to the era
       this.newAge = this.createEmptyAge(); // Reset the new age form
-      this.loadAvailableAges(this.era.id); // Refresh dropdown
+      // this.loadAvailableAges(this.era.id); // Refresh dropdown
     }
   }
 
@@ -96,21 +96,22 @@ export class EraFormComponent implements OnInit {
     const selectedAge = this.knownAges.find((age) => age.id === ageId);
     if (selectedAge) {
       this.era.ages.push({ ...selectedAge }); // Add the selected age to the era
-      this.loadAvailableAges(this.era.id); // Refresh dropdown
+      // this.loadAvailableAges(this.era.id); // Refresh dropdown
     }
   }
 
   removeAge(ageId: string): void {
     this.era.ages = this.era.ages.filter((age) => age.id !== ageId);
-    this.loadAvailableAges(this.era.id); // Refresh dropdown
+    // this.loadAvailableAges(this.era.id); // Refresh dropdown
   }
 
-  saveEra(): void {
+  async saveEra(): Promise<void> {
     if (this.isEditMode) {
-      this.staticDataService.updateEra(this.era); // Update existing era
+      // this.staticDataService.updateEra(this.era); // Update existing era
+      this.staticDataService.update("eras", this.era);
     } else {
-      this.era.id = `era_${Date.now()}`; // Generate a unique ID for a new era
-      this.staticDataService.addEra(this.era); // Add new era
+      await this.staticDataService.add("eras", this.era);
+      //  this.staticDataService.addEra(this.era); // Add new era
     }
     this.router.navigate(["/admin/eras"]); // Redirect to the era list
   }

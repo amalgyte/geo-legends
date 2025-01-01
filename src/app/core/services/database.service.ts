@@ -1,34 +1,51 @@
-import { Injectable } from '@angular/core';
+import { Injectable } from "@angular/core";
 import {
-  Database,
-  ref,
-  set,
-  push,
-  get,
-  update,
-  remove,
-} from '@angular/fire/database';
+  Firestore,
+  collection,
+  doc,
+  addDoc,
+  setDoc,
+  getDoc,
+  getDocs,
+  updateDoc,
+  deleteDoc,
+} from "@angular/fire/firestore";
 
 @Injectable({
-  providedIn: 'root',
+  providedIn: "root",
 })
 export class DatabaseService {
-  constructor(private db: Database) {}
+  constructor(private firestore: Firestore) {}
 
-  create(path: string, data: any): Promise<void> {
-    const newRef = push(ref(this.db, path));
-    return set(newRef, data);
+  async create(collectionPath: string, data: any): Promise<string> {
+    const colRef = collection(this.firestore, collectionPath);
+    const docRef = await addDoc(colRef, data);
+    return docRef.id;
   }
 
-  read(path: string): Promise<any> {
-    return get(ref(this.db, path)).then((snapshot) => snapshot.val());
+  async read(collectionPath: string, docId: string): Promise<any> {
+    const docRef = doc(this.firestore, `${collectionPath}/${docId}`);
+    const snapshot = await getDoc(docRef);
+    return snapshot.exists() ? snapshot.data() : null;
   }
 
-  update(path: string, data: any): Promise<void> {
-    return update(ref(this.db, path), data);
+  async readCollection(collectionPath: string): Promise<any[]> {
+    const colRef = collection(this.firestore, collectionPath);
+    const snapshot = await getDocs(colRef);
+    return snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
   }
 
-  delete(path: string): Promise<void> {
-    return remove(ref(this.db, path));
+  async update(
+    collectionPath: string,
+    docId: string,
+    data: any
+  ): Promise<void> {
+    const docRef = doc(this.firestore, `${collectionPath}/${docId}`);
+    await updateDoc(docRef, data);
+  }
+
+  async delete(collectionPath: string, docId: string): Promise<void> {
+    const docRef = doc(this.firestore, `${collectionPath}/${docId}`);
+    await deleteDoc(docRef);
   }
 }

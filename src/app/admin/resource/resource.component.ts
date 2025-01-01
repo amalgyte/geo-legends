@@ -20,7 +20,7 @@ export class ResourceComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.resources = this.staticDataService.getResources();
+    this.resources = this.staticDataService.get('globalResources');
   }
 
   addResource(): void {
@@ -32,7 +32,7 @@ export class ResourceComponent implements OnInit {
   }
 
   deleteResource(resourceId: string): void {
-    this.staticDataService.deleteResource(resourceId);
-    this.resources = this.staticDataService.getResources(); // Refresh list
+    this.staticDataService.delete('globalResources', resourceId);
+    this.resources = this.staticDataService.get('globalResources'); // Refresh list
   }
 }

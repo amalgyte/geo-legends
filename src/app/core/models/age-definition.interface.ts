@@ -1,8 +1,8 @@
-import { Ages } from '../enumerators/ages.enum';
+// import { Ages } from '../enumerators/ages.enum';
 import { UnlockRequirement } from './unlock-requirement.interface';
 
 export interface AgeDefinition {
-  id?: Ages; // Unique identifier
+  id?: string; // Unique identifier
   name: string; // Display name
   description: string; // Description of the age
   previousAgeId?: string; // null means no era or age preceeds this one.

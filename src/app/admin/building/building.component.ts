@@ -19,7 +19,7 @@ export class BuildingComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.buildings = this.staticDataService.getBuildings();
+    this.buildings = this.staticDataService.get('globalBuildings');
   }
 
   addBuilding(): void {
@@ -31,7 +31,7 @@ export class BuildingComponent implements OnInit {
   }
 
   deleteBuilding(buildingId: string): void {
-    this.staticDataService.deleteBuilding(buildingId);
-    this.buildings = this.staticDataService.getBuildings(); // Refresh list
+    this.staticDataService.delete('globalBuildings',buildingId);
+    this.buildings = this.staticDataService.get('globalBuildings'); // Refresh list
   }
 }
