@@ -20,9 +20,9 @@ export class EraFormComponent implements OnInit {
     nextEraId: "",
     ages: [],
     unlockRequirements: [],
-    technologies: [],
-    buildings: [],
-    units: [],
+    // technologies: [],
+    // buildings: [],
+    // units: [],
   };
   isEditMode: boolean = false;
   knownEras: EraDefinition[] = [];

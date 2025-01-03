@@ -12,7 +12,7 @@ export interface EraDefinition {
   nextEraId?: string | undefined; // null indicates last era.
   ages: AgeDefinition[]; // Ages within this era
   unlockRequirements: UnlockRequirement[]; //Era is only unlockable when these requirements are met.
-  technologies: TechnologyDefinition[];
-  buildings: BuildingDefinition[];
-  units: UnitDefinition[];
+  // technologies: TechnologyDefinition[];
+  // buildings: BuildingDefinition[];
+  // units: UnitDefinition[];
 }
