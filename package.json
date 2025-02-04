@@ -24,7 +24,7 @@
     "@firebase/auth": "^1.8.1",
     "@firebasegen/default-connector": "file:dataconnect-generated/js/default-connector",
     "@genkit-ai/firebase": "^0.9.12",
-    "component": "^1.1.0",
+    "component": "^0.19.9",
     "firebase": "^11.1.0",
     "leaflet": "^1.9.4",
     "rxjs": "~7.8.0",

@@ -5,13 +5,13 @@ import {
   Input,
   OnInit,
   Output,
-} from '@angular/core';
-import * as L from 'leaflet';
+} from "@angular/core";
+import * as L from "leaflet";
 
 @Component({
-  selector: 'app-map',
-  templateUrl: './map.component.html',
-  styleUrls: ['./map.component.scss'],
+  selector: "app-map",
+  templateUrl: "./map.component.html",
+  styleUrls: ["./map.component.scss"],
 })
 export class MapComponent implements AfterViewInit {
   @Input() FetchTerrainData: boolean = true;
@@ -28,16 +28,18 @@ export class MapComponent implements AfterViewInit {
   private gridLayer!: L.LayerGroup;
   private cellMap: Map<string, L.LatLngBounds> = new Map(); // Maps GUIDs to cell bounds
   private camps = [
-    { id: 'cell_58650_-944', type: 'town_center', owned: true },
-    { id: 'cell_58650_-942', type: 'stone_mine', owned: true },
-    { id: 'cell_58651_-945', type: 'gold_mine', owned: false },
-    { id: 'cell_58651_-946', type: '', owned: false },
+    { id: "cell_58650_-944", type: "town_center", owned: true },
+    { id: "cell_58650_-942", type: "stone_mine", owned: true },
+    { id: "cell_58651_-945", type: "gold_mine", owned: false },
+    { id: "cell_58651_-946", type: "", owned: false },
   ];
 
-  private gridSize = 50; // Grid cell size in meters
+  private gridSize = 100; // Grid cell size in meters
   private metersPerDegreeLatitude = 111320;
-  private offscreenBufferFactor = 2; // Multiplier for extending bounds off-screen
-  private zoomThreshold = 16; // Minimum zoom level for rendering the grid
+  private offscreenBufferFactor = 4; // Multiplier for extending bounds off-screen
+  private zoomThreshold = 14; // Minimum zoom level for rendering the grid
+  private maxZoom = 15;
+  private minZoom = 5;
   private clickTimeout: any = null; // Timer for single and double click detection
   private longClickTimeout: any = null; // Timer for long click detection
   private longClickDuration = 1000; // Time in ms to consider a long click
@@ -56,21 +58,21 @@ export class MapComponent implements AfterViewInit {
 
     this.overlayGrid();
     const debouncedOverlayGrid = this.debounce(() => this.overlayGrid(), 200);
-    this.map.on('moveend', debouncedOverlayGrid);
+    this.map.on("moveend", debouncedOverlayGrid);
     this.getPlayerLocation();
   }
 
   ngOnInit(): void {
     // Precompute a fixed center latitude (e.g., based on the first camp or a default)
     this.centerLatitude = this.camps.length
-      ? parseInt(this.camps[0].id.split('_')[1], 10) *
+      ? parseInt(this.camps[0].id.split("_")[1], 10) *
         (this.gridSize / this.metersPerDegreeLatitude)
       : 0;
   }
 
   private getPlayerLocation(): void {
     if (!navigator.geolocation) {
-      console.warn('Geolocation is not supported by your browser.');
+      console.warn("Geolocation is not supported by your browser.");
       return;
     }
 
@@ -84,17 +86,18 @@ export class MapComponent implements AfterViewInit {
         // Then make it possible for the gps service to imitate walking around the map for debug purposes.
         this.gpsMarker = L.circleMarker([latitude, longitude], {
           radius: 8, // Adjust the size of the circle
-          color: 'blue', // Border color
-          fillColor: 'blue', // Fill color
+          color: "blue", // Border color
+          fillColor: "blue", // Fill color
           fillOpacity: 0.8, // Transparency of the circle
         }).addTo(this.map);
 
         // Center the map on the player's location
-        this.map.setView([latitude, longitude], 17);
+        this.map.setView([latitude, longitude], this.zoomThreshold);
+        this.map.invalidateSize();
       },
       (error) => {
-        console.error('Error getting location:', error);
-        alert('Unable to retrieve your location.');
+        console.error("Error getting location:", error);
+        alert("Unable to retrieve your location.");
       },
       {
         enableHighAccuracy: true, // Request high accuracy for GPS
@@ -116,15 +119,17 @@ export class MapComponent implements AfterViewInit {
     const defaultCamp = this.camps[0];
     const defaultCenter = this.getCellCenterFromGUID(defaultCamp.id);
 
-    this.map = L.map('map', {
+    this.map = L.map("map", {
       renderer: L.canvas(),
       doubleClickZoom: false, // Disable double-click zoom
-    }).setView(defaultCenter || [51.505, -0.09], 17); // Fallback to default center
+    }).setView(defaultCenter || [51.505, -0.09], this.zoomThreshold); // Fallback to default center
+    this.map.invalidateSize();
 
-    L.tileLayer('https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png', {
-      maxZoom: 17,
-      minZoom: 1,
-      attribution: '© OpenStreetMap',
+    L.tileLayer("https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png", {
+      maxZoom: this.maxZoom,
+      minZoom: this.minZoom,
+      attribution: "© OpenStreetMap",
+      crossOrigin: true, // Allow cross-origin requests
     }).addTo(this.map);
 
     this.gridLayer = L.layerGroup().addTo(this.map);
@@ -181,29 +186,29 @@ export class MapComponent implements AfterViewInit {
       const camp = this.camps.find((camp) => camp.id === cell.ref);
       const isCampHere = !!camp;
 
-      let fillColor = '#000000'; // Default color for non-camp cells
+      let fillColor = "#000000"; // Default color for non-camp cells
       let fillOpacity = 0.5;
 
       if (isCampHere) {
-        if (camp?.type && camp.type.trim() !== '') {
-          fillColor = camp.owned ? '#fffc00' : '#aaffff'; // Yellow for owned camps, green for non-owned camps
+        if (camp?.type && camp.type.trim() !== "") {
+          fillColor = camp.owned ? "#fffc00" : "#aaffff"; // Yellow for owned camps, green for non-owned camps
         } else {
-          fillColor = 'none'; // Transparent if type is null or blank
+          fillColor = "none"; // Transparent if type is null or blank
           fillOpacity = 0;
         }
       }
 
       const gridBox = L.rectangle(cell.bounds, {
-        color: '#000000',
+        color: "#000000",
         weight: 0.5,
         fillColor: fillColor,
         fillOpacity: fillOpacity,
       });
 
       // Add event listeners for click and long click
-      gridBox.on('mousedown', () => this.startLongClick(cell.ref));
-      gridBox.on('mouseup', () => this.handleCellClick(cell.ref, cell.bounds));
-      gridBox.on('mouseout', () => this.cancelLongClick());
+      gridBox.on("mousedown", () => this.startLongClick(cell.ref));
+      gridBox.on("mouseup", () => this.handleCellClick(cell.ref, cell.bounds));
+      gridBox.on("mouseout", () => this.cancelLongClick());
 
       // Store the cell reference and bounds in the map
       this.cellMap.set(cell.ref, cell.bounds);
@@ -220,8 +225,8 @@ export class MapComponent implements AfterViewInit {
         return;
       }
 
-      const markerColor = camp.owned ? 'green' : 'grey'; // Red for owned camps, blue for non-owned camps
-      const fillColor = camp.owned ? '#ff6666' : '#eeeeee'; // Light red for owned camps, light blue for non-owned camps
+      const markerColor = camp.owned ? "green" : "grey"; // Red for owned camps, blue for non-owned camps
+      const fillColor = camp.owned ? "#ff6666" : "#eeeeee"; // Light red for owned camps, light blue for non-owned camps
 
       const marker = L.circleMarker(center, {
         radius: 6, // Fixed size for visibility
@@ -230,9 +235,9 @@ export class MapComponent implements AfterViewInit {
         fillOpacity: 0.8, // Semi-transparent
       });
 
-      marker.bindTooltip(camp.type || 'Unknown', {
+      marker.bindTooltip(camp.type || "Unknown", {
         permanent: false,
-        direction: 'top',
+        direction: "top",
       });
       this.campLayer.addLayer(marker);
     });
@@ -301,8 +306,8 @@ export class MapComponent implements AfterViewInit {
   private drawTemporaryCircle(center: L.LatLng): void {
     // Create a circle with a blue outline
     const circle = L.circle(center, {
-      color: 'blue', // Circle border color
-      fillColor: '#0000ff', // Circle fill color
+      color: "blue", // Circle border color
+      fillColor: "#0000ff", // Circle fill color
       fillOpacity: 0.2, // Circle transparency
       radius: this.gridSize * 0.75, // Radius in meters
     }).addTo(this.map);
@@ -331,10 +336,10 @@ export class MapComponent implements AfterViewInit {
       ]);
 
       this.cellEvent.emit({
-        type: 'long-click',
+        type: "long-click",
         cellGUID: guid,
         terrain: terrainData,
-        country: country || 'Unknown',
+        country: country || "Unknown",
       });
     }, this.longClickDuration);
   }
@@ -362,11 +367,12 @@ export class MapComponent implements AfterViewInit {
       this.clickTimeout = null;
 
       this.map.setView(center, this.map.getZoom());
+      this.map.invalidateSize();
       this.cellEvent.emit({
-        type: 'double-click',
+        type: "double-click",
         cellGUID: guid,
         terrain: terrainData,
-        country: country || 'Unknown',
+        country: country || "Unknown",
       });
 
       this.drawTemporaryCircle(center); // Draw temporary circle
@@ -377,10 +383,10 @@ export class MapComponent implements AfterViewInit {
         // Center the map on the cell
         // this.map.setView(center, this.map.getZoom());
         this.cellEvent.emit({
-          type: 'single-click',
+          type: "single-click",
           cellGUID: guid,
           terrain: terrainData,
-          country: country || 'Unknown',
+          country: country || "Unknown",
         });
         // this.drawTemporaryCircle(center);
       }, 300);
@@ -417,15 +423,15 @@ export class MapComponent implements AfterViewInit {
       out body;
     `;
 
-    const url = 'https://overpass-api.de/api/interpreter';
+    const url = "https://overpass-api.de/api/interpreter";
     try {
       const response = await fetch(url, {
-        method: 'POST',
+        method: "POST",
         body: query,
       });
 
       if (!response.ok) {
-        console.error('Error fetching terrain data:', response.statusText);
+        console.error("Error fetching terrain data:", response.statusText);
         return [];
       }
 
@@ -442,7 +448,7 @@ export class MapComponent implements AfterViewInit {
 
       return terrainData;
     } catch (error) {
-      console.error('Error querying Overpass API:', error);
+      console.error("Error querying Overpass API:", error);
       return [];
     }
   }
@@ -457,14 +463,14 @@ export class MapComponent implements AfterViewInit {
     try {
       const response = await fetch(url);
       if (!response.ok) {
-        console.error('Error fetching country:', response.statusText);
+        console.error("Error fetching country:", response.statusText);
         return null;
       }
 
       const data = await response.json();
       return data.address?.country || null; // Return country name or null if not found
     } catch (error) {
-      console.error('Error querying Nominatim API:', error);
+      console.error("Error querying Nominatim API:", error);
       return null;
     }
   }
