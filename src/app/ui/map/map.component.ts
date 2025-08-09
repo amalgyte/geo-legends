@@ -27,7 +27,7 @@ export class MapComponent implements AfterViewInit {
   private gpsMarker!: L.CircleMarker; // Change from L.Marker to L.CircleMarker
   private gridLayer!: L.LayerGroup;
   private cellMap: Map<string, L.LatLngBounds> = new Map(); // Maps GUIDs to cell bounds
-  private camps = [
+  @Input() camps: { id: string; type: string; owned: boolean }[] = [
     { id: 'cell_58650_-944', type: 'town_center', owned: true },
     { id: 'cell_58650_-942', type: 'stone_mine', owned: true },
     { id: 'cell_58651_-945', type: 'gold_mine', owned: false },

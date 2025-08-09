@@ -13,6 +13,7 @@ import { never } from 'rxjs';
 import { Ages } from '../core/enumerators/ages.enum';
 import { BattleStatus } from '../core/enumerators/battle-status.enum';
 import { EffectDefinitionType } from '../core/enumerators/effect-definition-type.enum';
+import { ResourceId } from '../core/enumerators/resource-id.enum';
 
 @Injectable({
   providedIn: 'root',
@@ -208,5 +209,27 @@ export class GameStateService {
     }
 
     return null;
+  }
+
+  claimCell(locationId: string, type: string = 'outpost'): boolean {
+    const cost: ResourceCost[] = [
+      { resourceId: ResourceId.WOOD, amount: 10 },
+      { resourceId: ResourceId.STONE, amount: 5 },
+    ];
+
+    if (!this.canAfford(cost)) {
+      return false;
+    }
+
+    this.updateResourcesAfterCost(cost);
+    const location: GridLocationState = {
+      id: locationId,
+      type,
+      resources: {},
+      units: [],
+      upgrades: [],
+    };
+    this.addOwnedGridLocation(location);
+    return true;
   }
 }

@@ -1,9 +1,16 @@
 <!-- Map Container -->
 <div id="map-container">
   <app-map
-    [FetchCountryData]="false"
+    [FetchCountryData]="true"
     [FetchTerrainData]="false"
+    [camps]="camps"
     (cellEvent)="onCellEvent($event)"
   ></app-map>
 
+  <div class="cell-details" *ngIf="selectedCellId">
+    <div>Cell: {{ selectedCellId }}</div>
+    <div *ngIf="country">Country: {{ country }}</div>
+    <button (click)="claimCell()" *ngIf="selectedCellId && !isOwned(selectedCellId)">Claim</button>
+    <span class="message">{{ message }}</span>
+  </div>
 </div>
