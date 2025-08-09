@@ -1,0 +1,353 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="512" height="256" viewBox="0 0 512 256">
+  <title>Spritesheet (64x64 tiles, 8x4 grid)</title>
+  <desc>Simple vector spritesheet with hero, slime, coin, and explosion frames. Each tile is 64x64. Coordinates in metadata.</desc>
+  <defs>
+    <linearGradient id="gold" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0%" stop-color="#FAD961"/>
+      <stop offset="100%" stop-color="#F76B1C"/>
+    </linearGradient>
+    <linearGradient id="steel" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0%" stop-color="#9aa5b1"/>
+      <stop offset="100%" stop-color="#48525d"/>
+    </linearGradient>
+    <radialGradient id="slimeBody" cx="50%" cy="40%" r="60%">
+      <stop offset="0%" stop-color="#96f2d7"/>
+      <stop offset="100%" stop-color="#20c997"/>
+    </radialGradient>
+  </defs>
+
+  <!-- Optional faint grid -->
+  <g id="grid" opacity="0.1">
+    <rect x="0" y="0" width="512" height="256" fill="#ffffff"/>
+    <g stroke="#000" stroke-width="1">
+      <!-- vertical lines -->
+      <g>
+        <path d="M64 0 V256 M128 0 V256 M192 0 V256 M256 0 V256 M320 0 V256 M384 0 V256 M448 0 V256" fill="none"/>
+      </g>
+      <!-- horizontal lines -->
+      <g>
+        <path d="M0 64 H512 M0 128 H512 M0 192 H512" fill="none"/>
+      </g>
+      <rect x="0" y="0" width="512" height="256" fill="none" stroke="#000" stroke-width="2"/>
+    </g>
+  </g>
+
+  <!-- Helper: tile background rect renderer -->
+  <g id="tiles">
+
+    <!-- Row 0: hero_down_walk_0..2 (x0..2), hero_right_walk_0..2 (x3..5) -->
+    <!-- hero_down_walk_0 at (0,0) -->
+    <g id="hero_down_walk_0" transform="translate(0,0)">
+      <rect x="0" y="0" width="64" height="64" fill="none"/>
+      <!-- shadow -->
+      <ellipse cx="32" cy="56" rx="18" ry="6" fill="#000" opacity="0.2"/>
+      <!-- body -->
+      <rect x="20" y="18" width="24" height="28" rx="6" fill="#7c4dff"/>
+      <!-- head -->
+      <circle cx="32" cy="16" r="12" fill="#ffcc99" stroke="#c48a6a" stroke-width="1"/>
+      <!-- eyes -->
+      <circle cx="27" cy="16" r="2" fill="#222"/>
+      <circle cx="37" cy="16" r="2" fill="#222"/>
+      <!-- legs (idle) -->
+      <rect x="22" y="44" width="8" height="10" rx="2" fill="#333"/>
+      <rect x="34" y="44" width="8" height="10" rx="2" fill="#333"/>
+      <!-- shield -->
+      <circle cx="48" cy="34" r="7" fill="url(#steel)" stroke="#2f3944" stroke-width="1"/>
+      <!-- sword -->
+      <rect x="10" y="30" width="3" height="16" fill="#c4c9cf"/>
+      <polygon points="11.5,26 14,30 9,30" fill="#c4c9cf"/>
+    </g>
+
+    <!-- hero_down_walk_1 at (64,0) -->
+    <g id="hero_down_walk_1" transform="translate(64,0)">
+      <rect x="0" y="0" width="64" height="64" fill="none"/>
+      <ellipse cx="32" cy="56" rx="18" ry="6" fill="#000" opacity="0.2"/>
+      <rect x="20" y="18" width="24" height="28" rx="6" fill="#7c4dff"/>
+      <circle cx="32" cy="16" r="12" fill="#ffcc99" stroke="#c48a6a" stroke-width="1"/>
+      <circle cx="27" cy="16" r="2" fill="#222"/>
+      <circle cx="37" cy="16" r="2" fill="#222"/>
+      <!-- legs spread -->
+      <rect x="18" y="44" width="10" height="10" rx="2" fill="#333"/>
+      <rect x="36" y="44" width="10" height="10" rx="2" fill="#333"/>
+      <!-- shield slight move -->
+      <circle cx="49" cy="33" r="7" fill="url(#steel)" stroke="#2f3944" stroke-width="1"/>
+      <!-- sword swing -->
+      <rect x="12" y="30" width="3" height="16" transform="rotate(-15 13.5 38)" fill="#c4c9cf"/>
+      <polygon points="13.5,26 16,30 11,30" fill="#c4c9cf"/>
+    </g>
+
+    <!-- hero_down_walk_2 at (128,0) -->
+    <g id="hero_down_walk_2" transform="translate(128,0)">
+      <rect x="0" y="0" width="64" height="64" fill="none"/>
+      <ellipse cx="32" cy="56" rx="18" ry="6" fill="#000" opacity="0.2"/>
+      <rect x="20" y="18" width="24" height="28" rx="6" fill="#7c4dff"/>
+      <circle cx="32" cy="16" r="12" fill="#ffcc99" stroke="#c48a6a" stroke-width="1"/>
+      <circle cx="27" cy="16" r="2" fill="#222"/>
+      <circle cx="37" cy="16" r="2" fill="#222"/>
+      <!-- legs alternate -->
+      <rect x="24" y="44" width="8" height="10" rx="2" fill="#333"/>
+      <rect x="36" y="44" width="8" height="10" rx="2" fill="#333"/>
+      <!-- shield -->
+      <circle cx="47" cy="35" r="7" fill="url(#steel)" stroke="#2f3944" stroke-width="1"/>
+      <!-- sword -->
+      <rect x="10" y="30" width="3" height="16" transform="rotate(10 11.5 38)" fill="#c4c9cf"/>
+      <polygon points="11.5,26 14,30 9,30" fill="#c4c9cf"/>
+    </g>
+
+    <!-- hero_right_walk_0 at (192,0) -->
+    <g id="hero_right_walk_0" transform="translate(192,0)">
+      <rect x="0" y="0" width="64" height="64" fill="none"/>
+      <ellipse cx="32" cy="56" rx="18" ry="6" fill="#000" opacity="0.2"/>
+      <!-- body angled -->
+      <rect x="22" y="18" width="22" height="28" rx="6" fill="#7c4dff"/>
+      <circle cx="38" cy="16" r="12" fill="#ffcc99" stroke="#c48a6a" stroke-width="1"/>
+      <circle cx="42" cy="16" r="2" fill="#222"/>
+      <circle cx="36" cy="16" r="2" fill="#222"/>
+      <!-- legs -->
+      <rect x="30" y="44" width="10" height="10" rx="2" fill="#333"/>
+      <rect x="20" y="44" width="8" height="10" rx="2" fill="#333"/>
+      <!-- shield behind -->
+      <circle cx="18" cy="34" r="7" fill="url(#steel)" stroke="#2f3944" stroke-width="1"/>
+      <!-- sword forward -->
+      <rect x="48" y="30" width="3" height="16" fill="#c4c9cf"/>
+      <polygon points="49.5,26 52,30 47,30" fill="#c4c9cf"/>
+    </g>
+
+    <!-- hero_right_walk_1 at (256,0) -->
+    <g id="hero_right_walk_1" transform="translate(256,0)">
+      <rect x="0" y="0" width="64" height="64" fill="none"/>
+      <ellipse cx="32" cy="56" rx="18" ry="6" fill="#000" opacity="0.2"/>
+      <rect x="22" y="18" width="22" height="28" rx="6" fill="#7c4dff"/>
+      <circle cx="38" cy="16" r="12" fill="#ffcc99" stroke="#c48a6a" stroke-width="1"/>
+      <circle cx="42" cy="16" r="2" fill="#222"/>
+      <circle cx="36" cy="16" r="2" fill="#222"/>
+      <rect x="32" y="44" width="10" height="10" rx="2" fill="#333"/>
+      <rect x="18" y="44" width="10" height="10" rx="2" fill="#333"/>
+      <circle cx="17" cy="33" r="7" fill="url(#steel)" stroke="#2f3944" stroke-width="1"/>
+      <rect x="50" y="30" width="3" height="16" transform="rotate(10 51.5 38)" fill="#c4c9cf"/>
+      <polygon points="51.5,26 54,30 49,30" fill="#c4c9cf"/>
+    </g>
+
+    <!-- hero_right_walk_2 at (320,0) -->
+    <g id="hero_right_walk_2" transform="translate(320,0)">
+      <rect x="0" y="0" width="64" height="64" fill="none"/>
+      <ellipse cx="32" cy="56" rx="18" ry="6" fill="#000" opacity="0.2"/>
+      <rect x="22" y="18" width="22" height="28" rx="6" fill="#7c4dff"/>
+      <circle cx="38" cy="16" r="12" fill="#ffcc99" stroke="#c48a6a" stroke-width="1"/>
+      <circle cx="42" cy="16" r="2" fill="#222"/>
+      <circle cx="36" cy="16" r="2" fill="#222"/>
+      <rect x="30" y="44" width="10" height="10" rx="2" fill="#333"/>
+      <rect x="20" y="44" width="8" height="10" rx="2" fill="#333"/>
+      <circle cx="19" cy="35" r="7" fill="url(#steel)" stroke="#2f3944" stroke-width="1"/>
+      <rect x="48" y="30" width="3" height="16" transform="rotate(-10 49.5 38)" fill="#c4c9cf"/>
+      <polygon points="49.5,26 52,30 47,30" fill="#c4c9cf"/>
+    </g>
+
+    <!-- Row 1: hero_left_walk_0..2 (x0..2), hero_up_walk_0..2 (x3..5) -->
+    <!-- hero_left_walk_0 at (0,64) -->
+    <g id="hero_left_walk_0" transform="translate(0,64)">
+      <rect x="0" y="0" width="64" height="64" fill="none"/>
+      <ellipse cx="32" cy="56" rx="18" ry="6" fill="#000" opacity="0.2"/>
+      <rect x="20" y="18" width="22" height="28" rx="6" fill="#7c4dff"/>
+      <circle cx="26" cy="16" r="12" fill="#ffcc99" stroke="#c48a6a" stroke-width="1"/>
+      <circle cx="22" cy="16" r="2" fill="#222"/>
+      <circle cx="28" cy="16" r="2" fill="#222"/>
+      <rect x="22" y="44" width="10" height="10" rx="2" fill="#333"/>
+      <rect x="34" y="44" width="8" height="10" rx="2" fill="#333"/>
+      <circle cx="46" cy="34" r="7" fill="url(#steel)" stroke="#2f3944" stroke-width="1"/>
+      <rect x="10" y="30" width="3" height="16" fill="#c4c9cf"/>
+      <polygon points="11.5,26 14,30 9,30" fill="#c4c9cf"/>
+    </g>
+    <!-- hero_left_walk_1 at (64,64) -->
+    <g id="hero_left_walk_1" transform="translate(64,64)">
+      <rect x="0" y="0" width="64" height="64" fill="none"/>
+      <ellipse cx="32" cy="56" rx="18" ry="6" fill="#000" opacity="0.2"/>
+      <rect x="20" y="18" width="22" height="28" rx="6" fill="#7c4dff"/>
+      <circle cx="26" cy="16" r="12" fill="#ffcc99" stroke="#c48a6a" stroke-width="1"/>
+      <circle cx="22" cy="16" r="2" fill="#222"/>
+      <circle cx="28" cy="16" r="2" fill="#222"/>
+      <rect x="20" y="44" width="10" height="10" rx="2" fill="#333"/>
+      <rect x="36" y="44" width="10" height="10" rx="2" fill="#333"/>
+      <circle cx="47" cy="33" r="7" fill="url(#steel)" stroke="#2f3944" stroke-width="1"/>
+      <rect x="12" y="30" width="3" height="16" transform="rotate(-10 13.5 38)" fill="#c4c9cf"/>
+      <polygon points="13.5,26 16,30 11,30" fill="#c4c9cf"/>
+    </g>
+    <!-- hero_left_walk_2 at (128,64) -->
+    <g id="hero_left_walk_2" transform="translate(128,64)">
+      <rect x="0" y="0" width="64" height="64" fill="none"/>
+      <ellipse cx="32" cy="56" rx="18" ry="6" fill="#000" opacity="0.2"/>
+      <rect x="20" y="18" width="22" height="28" rx="6" fill="#7c4dff"/>
+      <circle cx="26" cy="16" r="12" fill="#ffcc99" stroke="#c48a6a" stroke-width="1"/>
+      <circle cx="22" cy="16" r="2" fill="#222"/>
+      <circle cx="28" cy="16" r="2" fill="#222"/>
+      <rect x="22" y="44" width="10" height="10" rx="2" fill="#333"/>
+      <rect x="34" y="44" width="8" height="10" rx="2" fill="#333"/>
+      <circle cx="45" cy="35" r="7" fill="url(#steel)" stroke="#2f3944" stroke-width="1"/>
+      <rect x="10" y="30" width="3" height="16" transform="rotate(10 11.5 38)" fill="#c4c9cf"/>
+      <polygon points="11.5,26 14,30 9,30" fill="#c4c9cf"/>
+    </g>
+
+    <!-- hero_up_walk_0 at (192,64) -->
+    <g id="hero_up_walk_0" transform="translate(192,64)">
+      <rect x="0" y="0" width="64" height="64" fill="none"/>
+      <ellipse cx="32" cy="56" rx="18" ry="6" fill="#000" opacity="0.2"/>
+      <rect x="22" y="20" width="20" height="26" rx="6" fill="#7c4dff"/>
+      <circle cx="32" cy="14" r="12" fill="#ffcc99" stroke="#c48a6a" stroke-width="1"/>
+      <!-- hair/back of head -->
+      <path d="M20,12 C26,8 38,8 44,12 L44,16 C38,12 26,12 20,16 Z" fill="#5d4037" opacity="0.8"/>
+      <!-- no eyes visible -->
+      <rect x="22" y="44" width="10" height="10" rx="2" fill="#333"/>
+      <rect x="32" y="44" width="10" height="10" rx="2" fill="#333"/>
+      <circle cx="16" cy="36" r="7" fill="url(#steel)" stroke="#2f3944" stroke-width="1"/>
+      <rect x="50" y="30" width="3" height="16" fill="#c4c9cf"/>
+    </g>
+
+    <!-- hero_up_walk_1 at (256,64) -->
+    <g id="hero_up_walk_1" transform="translate(256,64)">
+      <rect x="0" y="0" width="64" height="64" fill="none"/>
+      <ellipse cx="32" cy="56" rx="18" ry="6" fill="#000" opacity="0.2"/>
+      <rect x="22" y="20" width="20" height="26" rx="6" fill="#7c4dff"/>
+      <circle cx="32" cy="14" r="12" fill="#ffcc99" stroke="#c48a6a" stroke-width="1"/>
+      <path d="M20,12 C26,8 38,8 44,12 L44,16 C38,12 26,12 20,16 Z" fill="#5d4037" opacity="0.8"/>
+      <rect x="20" y="44" width="10" height="10" rx="2" fill="#333"/>
+      <rect x="34" y="44" width="10" height="10" rx="2" fill="#333"/>
+      <circle cx="15" cy="35" r="7" fill="url(#steel)" stroke="#2f3944" stroke-width="1"/>
+      <rect x="50" y="30" width="3" height="16" transform="rotate(10 51.5 38)" fill="#c4c9cf"/>
+    </g>
+
+    <!-- hero_up_walk_2 at (320,64) -->
+    <g id="hero_up_walk_2" transform="translate(320,64)">
+      <rect x="0" y="0" width="64" height="64" fill="none"/>
+      <ellipse cx="32" cy="56" rx="18" ry="6" fill="#000" opacity="0.2"/>
+      <rect x="22" y="20" width="20" height="26" rx="6" fill="#7c4dff"/>
+      <circle cx="32" cy="14" r="12" fill="#ffcc99" stroke="#c48a6a" stroke-width="1"/>
+      <path d="M20,12 C26,8 38,8 44,12 L44,16 C38,12 26,12 20,16 Z" fill="#5d4037" opacity="0.8"/>
+      <rect x="22" y="44" width="10" height="10" rx="2" fill="#333"/>
+      <rect x="32" y="44" width="10" height="10" rx="2" fill="#333"/>
+      <circle cx="16" cy="37" r="7" fill="url(#steel)" stroke="#2f3944" stroke-width="1"/>
+      <rect x="50" y="30" width="3" height="16" transform="rotate(-10 51.5 38)" fill="#c4c9cf"/>
+    </g>
+
+    <!-- Row 2: slime_idle_0..3 (x0..3), coin_spin_0..3 (x4..7) -->
+    <!-- slime_idle_0 at (0,128) -->
+    <g id="slime_idle_0" transform="translate(0,128)">
+      <rect x="0" y="0" width="64" height="64" fill="none"/>
+      <ellipse cx="32" cy="58" rx="16" ry="5" fill="#000" opacity="0.2"/>
+      <path d="M16,44 C16,28 48,28 48,44 C48,54 16,54 16,44 Z" fill="url(#slimeBody)"/>
+      <circle cx="26" cy="42" r="2" fill="#113"/>
+      <circle cx="38" cy="42" r="2" fill="#113"/>
+      <rect x="24" y="47" width="16" height="3" rx="2" fill="#0b7285" opacity="0.6"/>
+    </g>
+    <!-- slime_idle_1 at (64,128) -->
+    <g id="slime_idle_1" transform="translate(64,128)">
+      <rect x="0" y="0" width="64" height="64" fill="none"/>
+      <ellipse cx="32" cy="58" rx="15" ry="5" fill="#000" opacity="0.2"/>
+      <path d="M18,45 C18,30 46,30 46,45 C46,54 18,54 18,45 Z" fill="url(#slimeBody)"/>
+      <circle cx="27" cy="43" r="2" fill="#113"/>
+      <circle cx="37" cy="43" r="2" fill="#113"/>
+      <rect x="25" y="48" width="14" height="3" rx="2" fill="#0b7285" opacity="0.6"/>
+    </g>
+    <!-- slime_idle_2 at (128,128) -->
+    <g id="slime_idle_2" transform="translate(128,128)">
+      <rect x="0" y="0" width="64" height="64" fill="none"/>
+      <ellipse cx="32" cy="58" rx="16" ry="5" fill="#000" opacity="0.2"/>
+      <path d="M16,44 C16,28 48,28 48,44 C48,54 16,54 16,44 Z" fill="url(#slimeBody)"/>
+      <circle cx="26" cy="42" r="2" fill="#113"/>
+      <circle cx="38" cy="42" r="2" fill="#113"/>
+      <rect x="24" y="47" width="16" height="3" rx="2" fill="#0b7285" opacity="0.6"/>
+    </g>
+    <!-- slime_idle_3 at (192,128) -->
+    <g id="slime_idle_3" transform="translate(192,128)">
+      <rect x="0" y="0" width="64" height="64" fill="none"/>
+      <ellipse cx="32" cy="58" rx="17" ry="5" fill="#000" opacity="0.2"/>
+      <path d="M15,45 C15,29 49,29 49,45 C49,54 15,54 15,45 Z" fill="url(#slimeBody)"/>
+      <circle cx="26" cy="43" r="2" fill="#113"/>
+      <circle cx="38" cy="43" r="2" fill="#113"/>
+      <rect x="24" y="48" width="16" height="3" rx="2" fill="#0b7285" opacity="0.6"/>
+    </g>
+
+    <!-- coin_spin_0..3 at x=4..7, y=2 -->
+    <g id="coin_spin_0" transform="translate(256,128)">
+      <rect x="0" y="0" width="64" height="64" fill="none"/>
+      <ellipse cx="32" cy="52" rx="14" ry="5" fill="#000" opacity="0.2"/>
+      <circle cx="32" cy="32" r="18" fill="url(#gold)" stroke="#a15d00"/>
+      <text x="32" y="36" font-size="16" text-anchor="middle" fill="#7a3b00" font-family="sans-serif">★</text>
+    </g>
+    <g id="coin_spin_1" transform="translate(320,128)">
+      <rect x="0" y="0" width="64" height="64" fill="none"/>
+      <ellipse cx="32" cy="52" rx="14" ry="5" fill="#000" opacity="0.2"/>
+      <ellipse cx="32" cy="32" rx="16" ry="18" fill="url(#gold)" stroke="#a15d00"/>
+      <text x="32" y="36" font-size="16" text-anchor="middle" fill="#7a3b00" font-family="sans-serif">★</text>
+    </g>
+    <g id="coin_spin_2" transform="translate(384,128)">
+      <rect x="0" y="0" width="64" height="64" fill="none"/>
+      <ellipse cx="32" cy="52" rx="14" ry="5" fill="#000" opacity="0.2"/>
+      <rect x="28" y="14" width="8" height="36" fill="url(#gold)" stroke="#a15d00"/>
+    </g>
+    <g id="coin_spin_3" transform="translate(448,128)">
+      <rect x="0" y="0" width="64" height="64" fill="none"/>
+      <ellipse cx="32" cy="52" rx="14" ry="5" fill="#000" opacity="0.2"/>
+      <ellipse cx="32" cy="32" rx="12" ry="18" fill="url(#gold)" stroke="#a15d00"/>
+      <text x="32" y="36" font-size="16" text-anchor="middle" fill="#7a3b00" font-family="sans-serif">★</text>
+    </g>
+
+    <!-- Row 3: coin_spin_4..5 (x0..1), explosion_0..5 (x2..7) -->
+    <g id="coin_spin_4" transform="translate(0,192)">
+      <rect x="0" y="0" width="64" height="64" fill="none"/>
+      <ellipse cx="32" cy="52" rx="14" ry="5" fill="#000" opacity="0.2"/>
+      <ellipse cx="32" cy="32" rx="16" ry="18" fill="url(#gold)" stroke="#a15d00"/>
+      <text x="32" y="36" font-size="16" text-anchor="middle" fill="#7a3b00" font-family="sans-serif">★</text>
+    </g>
+    <g id="coin_spin_5" transform="translate(64,192)">
+      <rect x="0" y="0" width="64" height="64" fill="none"/>
+      <ellipse cx="32" cy="52" rx="14" ry="5" fill="#000" opacity="0.2"/>
+      <circle cx="32" cy="32" r="18" fill="url(#gold)" stroke="#a15d00"/>
+      <text x="32" y="36" font-size="16" text-anchor="middle" fill="#7a3b00" font-family="sans-serif">★</text>
+    </g>
+
+    <!-- explosion frames at (128..512,192) -->
+    <g id="explosion_0" transform="translate(128,192)">
+      <rect x="0" y="0" width="64" height="64" fill="none"/>
+      <g fill="#ffd166">
+        <circle cx="32" cy="32" r="6"/>
+      </g>
+    </g>
+    <g id="explosion_1" transform="translate(192,192)">
+      <rect x="0" y="0" width="64" height="64" fill="none"/>
+      <g fill="#ffb703">
+        <circle cx="32" cy="32" r="10"/>
+        <circle cx="20" cy="28" r="3"/>
+        <circle cx="44" cy="38" r="2.5"/>
+      </g>
+    </g>
+    <g id="explosion_2" transform="translate(256,192)">
+      <rect x="0" y="0" width="64" height="64" fill="none"/>
+      <g fill="#fb8500">
+        <polygon points="32,18 36,30 50,32 36,34 32,46 28,34 14,32 28,30"/>
+      </g>
+    </g>
+    <g id="explosion_3" transform="translate(320,192)">
+      <rect x="0" y="0" width="64" height="64" fill="none"/>
+      <g fill="#e63946">
+        <polygon points="32,16 38,28 54,30 40,34 36,50 28,36 12,34 26,30"/>
+        <circle cx="22" cy="26" r="2" fill="#ffd166"/>
+        <circle cx="46" cy="38" r="2" fill="#ffd166"/>
+      </g>
+    </g>
+    <g id="explosion_4" transform="translate(384,192)">
+      <rect x="0" y="0" width="64" height="64" fill="none"/>
+      <g fill="#9d0208">
+        <polygon points="32,14 40,26 56,28 42,36 38,54 26,38 8,36 22,28"/>
+      </g>
+    </g>
+    <g id="explosion_5" transform="translate(448,192)">
+      <rect x="0" y="0" width="64" height="64" fill="none"/>
+      <g fill="#6a040f" opacity="0.8">
+        <polygon points="32,14 42,24 58,28 44,38 38,56 26,40 6,36 20,26"/>
+        <circle cx="32" cy="32" r="4" fill="#ffecd1"/>
+      </g>
+    </g>
+
+  </g>
+</svg>
