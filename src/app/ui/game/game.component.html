@@ -3,7 +3,7 @@
 *ngIf="(authService.role$ | async) === 'admin'"
 [name]="'Admin'"
 ></app-footer>
-<app-header></app-header>
+<app-header [title]="headerTitle" [score]="headerScore" [level]="headerLevel"></app-header>
 <app-map-view></app-map-view>
 <app-resource-view></app-resource-view>
 <app-economy-view></app-economy-view>
