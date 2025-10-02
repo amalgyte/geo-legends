@@ -53,11 +53,11 @@ export class AuthService {
           this.roleSubject.next(role);
   
           // Redirect based on role
-          const redirectTo = this.router.getCurrentNavigation()?.extras.queryParams?.['redirectTo'] || '/game';
+          const redirectTo = this.router.getCurrentNavigation()?.extras.queryParams?.['redirectTo'] || '/';
           if (role === 'admin' && redirectTo === '/admin') {
             this.router.navigate(['/admin']);
           } else {
-            this.router.navigate(['/game']);
+            this.router.navigate(['/']);
           }
         }
       })
@@ -77,11 +77,11 @@ export class AuthService {
           this.roleSubject.next(role);
   
           // Redirect based on role
-          const redirectTo = this.router.getCurrentNavigation()?.extras.queryParams?.['redirectTo'] || '/game';
+          const redirectTo = this.router.getCurrentNavigation()?.extras.queryParams?.['redirectTo'] || '/';
           if (role === 'admin' && redirectTo === '/admin') {
             this.router.navigate(['/admin']);
           } else {
-            this.router.navigate(['/game']);
+            this.router.navigate(['/']);
           }
         }
       })

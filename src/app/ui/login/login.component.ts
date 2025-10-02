@@ -14,7 +14,7 @@ import { FormsModule } from '@angular/forms';
 export class LoginComponent {
   email = '';
   password = '';
-  redirectTo: string = '/game';
+  redirectTo: string = '/';
 
   constructor(private authService: AuthService, private route: ActivatedRoute) {
     this.route.queryParams.subscribe((params) => {

@@ -1,0 +1,146 @@
+.landing-container {
+  min-height: 100vh;
+  
+  .hero {
+    text-align: center;
+    padding: 4rem 2rem;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    
+    h1 {
+      font-size: 3rem;
+      margin-bottom: 1rem;
+    }
+    
+    .tagline {
+      font-size: 1.5rem;
+      margin-bottom: 2rem;
+      opacity: 0.9;
+    }
+    
+    .cta-buttons {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+      
+      button, a {
+        padding: 1rem 2rem;
+        font-size: 1.1rem;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        text-decoration: none;
+        display: inline-block;
+      }
+      
+      .btn-primary {
+        background: white;
+        color: #667eea;
+        font-weight: bold;
+        
+        &:hover {
+          background: #f0f0f0;
+        }
+      }
+      
+      .btn-secondary {
+        background: transparent;
+        color: white;
+        border: 2px solid white;
+        
+        &:hover {
+          background: rgba(255, 255, 255, 0.1);
+        }
+      }
+    }
+  }
+  
+  .about {
+    padding: 4rem 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+    
+    h2 {
+      text-align: center;
+      font-size: 2.5rem;
+      margin-bottom: 2rem;
+    }
+    
+    p {
+      text-align: center;
+      font-size: 1.2rem;
+      margin-bottom: 3rem;
+      color: #666;
+    }
+    
+    .features {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 2rem;
+      
+      .feature {
+        text-align: center;
+        padding: 2rem;
+        border-radius: 8px;
+        background: #f9f9f9;
+        
+        h3 {
+          font-size: 1.5rem;
+          margin-bottom: 1rem;
+          color: #667eea;
+        }
+        
+        p {
+          margin: 0;
+          font-size: 1rem;
+        }
+      }
+    }
+  }
+  
+  .download {
+    padding: 4rem 2rem;
+    background: #f5f5f5;
+    text-align: center;
+    
+    h2 {
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+    }
+    
+    .store-links {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+      margin-top: 2rem;
+      
+      .store-btn {
+        padding: 1rem 2rem;
+        background: #ccc;
+        border: none;
+        border-radius: 8px;
+        cursor: not-allowed;
+        display: flex;
+        flex-direction: column;
+        
+        span {
+          font-size: 1.1rem;
+          font-weight: bold;
+        }
+        
+        small {
+          font-size: 0.8rem;
+          margin-top: 0.25rem;
+        }
+      }
+    }
+  }
+  
+  footer {
+    padding: 2rem;
+    text-align: center;
+    background: #333;
+    color: white;
+  }
+}
+
